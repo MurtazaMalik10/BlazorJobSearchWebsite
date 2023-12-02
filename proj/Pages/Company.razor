@@ -1,0 +1,80 @@
+﻿@page "/company/profile"
+@using DAL
+@using Entities
+@inject NavigationManager NavigationManager
+
+@if (!profileCreated)
+{
+    <div class="container-fluid">
+        <div class="row justify-content-center"> <!-- Center the content -->
+            <div class="col-md-6">
+                <div class="accordion-header text-center"><h4>Create Company Profile</h4></div>
+                <form class="mt-4">
+            <div class="mb-3">
+                <label for="firstName" class="form-label">First Name:</label>
+                <input type="text" class="form-control" id="firstName" @bind="company.FirstName" />
+            </div>
+            <div class="mb-3">
+                <label for="lastName" class="form-label">Last Name:</label>
+                <input type="text" class="form-control" id="lastName" @bind="company.LastName" />
+            </div>
+            <div class="mb-3">
+                <label for="roles" class="form-label">Roles:</label>
+                <input type="text" class="form-control" id="roles" @bind="company.Roles" />
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="email" @bind="company.Email" />
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" class="form-control" id="password" @bind="company.Password" />
+            </div>
+            <button type="button" class="btn btn-primary" @onclick="CreateProfile">Create Profile</button>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <h4>View Company Profile</h4>
+    <div class="card mt-4">
+        <div class="card-body">
+            <p><strong>First Name:</strong> @company.FirstName</p>
+            <p><strong>Last Name:</strong> @company.LastName</p>
+            <p><strong>Email:</strong> @company.Email</p>
+            <p><strong>Roles:</strong> @company.Roles</p>
+            <!-- Display other profile information as needed -->
+        </div>
+    </div>
+    <button class="btn btn-secondary mt-3" @onclick="EditProfile">Edit Profile</button>
+}
+
+@code {
+    EntCompany company = new EntCompany();
+    bool profileCreated = false;
+
+    async Task CreateProfile()
+    {
+        DALCompany.SaveCompany(company);
+        profileCreated = true;
+
+        // Navigate to CompanyList page after saving the profile
+        NavigationManager.NavigateTo("/companylist");
+    }
+
+    void EditProfile()
+    {
+        // Handle edit logic here
+    }
+
+    protected override void OnInitialized()
+    {
+        if (profileCreated)
+        {
+            // Fetch the company profile if already created
+            company = DALCompany.ProfileCompany();
+        }
+    }
+}

@@ -1,0 +1,25 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>Job Portal</PageTitle>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">JobPortal</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <NavMenu />
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="page">
+    <main>
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>

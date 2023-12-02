@@ -1,0 +1,55 @@
+﻿@page "/companylist"
+@using Entities
+@using DAL
+
+<h3>Saved Companies</h3>
+
+@if (companies != null && companies.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Company ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Jobs</th>
+                    <!-- Add more columns as needed -->
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var company in companies)
+                {
+                    <tr>
+                        <td>@company.CompanyID</td>
+                        <td>@company.FirstName</td>
+                        <td>@company.LastName</td>
+                        <td>@company.Email</td>
+                        <td>@company.Roles</td>
+                        <!-- Display other company details -->
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p>No companies found.</p>
+}
+
+@code {
+    private List<EntCompany> companies { get; set; } = new List<EntCompany>();
+
+    protected override void OnInitialized()
+    {
+        RefreshCompanyList();
+        base.OnInitialized();
+    }
+
+    private void RefreshCompanyList()
+    {
+        companies = DALCompany.GetCompanies();
+    }
+}

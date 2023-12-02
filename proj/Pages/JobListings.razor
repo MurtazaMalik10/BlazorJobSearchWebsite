@@ -1,0 +1,50 @@
+﻿@page "/joblistings"
+@inject NavigationManager NavigationManager
+
+@using Entities
+@using DAL
+<h3>Job Listings</h3>
+
+@if (jobs != null && jobs.Any())
+{
+    <div class="row">
+        @foreach (var job in jobs)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Job Title: @job.JobTitle</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Job ID: @job.JobId</h6>
+                        <p class="card-text">Description: @job.Description</p>
+                        <!-- Button to delete job -->
+                        <button class="btn btn-danger" @onclick="@(() => DeleteJob(job.JobId))">Delete Job</button>
+                        <!-- You can add more job details here -->
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p>No jobs found.</p>
+}
+
+@code {
+    List<EntJobs> jobs;
+
+    protected override void OnInitialized()
+    {
+        // Fetch all jobs from the database
+        jobs = DALJobs.ShowJob();
+    }
+
+    private void DeleteJob(int jobId)
+    {
+        // Delete the job based on JobID
+        DALJobs.DeleteJob(jobId);
+
+        // Refresh the job list after deletion
+        jobs = DALJobs.ShowJob();
+    }
+}

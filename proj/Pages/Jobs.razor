@@ -1,0 +1,58 @@
+﻿@page "/jobs"
+@inject NavigationManager NavigationManager
+
+@using Entities
+@using DAL
+
+<div class="container">
+    <h3>Create Job</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="companyId">Company ID:</label>
+                <input type="text" id="companyId" class="form-control" @bind="newJob.CompanyID" />
+            </div><div class="form-group">
+                <label for="jobTitle">Job Title:</label>
+                <input type="text" id="jobTitle" class="form-control" @bind="newJob.JobTitle" />
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" class="form-control" rows="5" @bind="newJob.Description"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="categoryId">Category ID:</label>
+                <input type="text" id="categoryId" class="form-control" @bind="newJob.CatId" />
+            </div>
+            <div class="form-group">
+                <label for="thumbnail">Thumbnail:</label>
+                <input type="text" id="thumbnail" class="form-control" @bind="newJob.Thumbnail" />
+            </div>
+            
+            <div class="form-group">
+                <label for="isActive">Is Active:</label>
+                <input type="checkbox" id="isActive" class="form-check-input" @bind="newJob.IsActive" />
+            </div>
+            <div class="form-group">
+                <label for="currentTime">Current Time:</label>
+                <input type="datetime-local" id="currentTime" class="form-control" @bind="newJob.TimeUploaded" />
+            </div>
+            <!-- Add more fields as needed based on your DALJobs.cs fields -->
+
+            <button @onclick="CreateJob" class="btn btn-primary">Create Job</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    EntJobs newJob = new EntJobs();
+
+    // Method to create a new job
+    protected void CreateJob()
+    {
+        // Save the new job using DAL method
+        DALJobs.SaveJob(newJob);
+
+        // Redirect to job listings page after creating the job
+        NavigationManager.NavigateTo("/joblistings");
+    }
+}

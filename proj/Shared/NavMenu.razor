@@ -1,0 +1,55 @@
+﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand logo" href="#">
+            <img src="JobPortalLogo.png" alt="Job Portal" height="100">
+        </a>
+
+        <!-- Toggle Button -->
+        <button class="navbar-toggler" type="button" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Items -->
+        <div class="@NavMenuCssClass" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <NavLink class="nav-link text-light" href="" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Home
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link text-light" href="company/profile">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Create Company Profile
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link text-light" href="companylist">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Registered Companies
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link text-light" href="jobs">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Create Job
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link text-light" href="joblistings">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> View Jobs
+                    </NavLink>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : "";
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

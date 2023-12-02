@@ -1,0 +1,60 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.Web
+@inject NavigationManager NavigationManager
+@using Entities
+@using DAL
+
+<div class="container">
+    <!-- Hero Section -->
+    <div class="jumbotron text-center">
+        <h1>Welcome to Job Portal</h1>
+        <p>Find your dream job with us</p>
+        <button class="btn btn-primary" @onclick="ViewJobListings">View All Job Listings</button>
+    </div>
+
+    <!-- Job Listings Section -->
+    @if (latestJobs != null && latestJobs.Any())
+    {
+        <div id="job-listings" class="mt-5">
+            <h2 class="text-center">Latest Job Listings</h2>
+            <ol class="list-unstyled">
+                @foreach (var job in latestJobs)
+                {
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Job Title: @job.JobTitle</h5>
+                            <p class="card-text">Description: @job.Description</p>
+                            <!-- Other job details -->
+                        </div>
+                    </div>
+                }
+                </ol>
+            </div>
+    }
+    else
+    {
+    <p>No jobs found.</p>
+    }
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container text-center">
+            <p>&copy; 2023 Job Portal</p>
+        </div>
+    </footer>
+</div>
+
+@code {
+    List<EntJobs> latestJobs;
+
+    protected override void OnInitialized()
+    {
+        // Fetch latest jobs for display on the index page
+        latestJobs = DALJobs.GetLatestJobsWithThumbnails();
+    }
+
+    void ViewJobListings(MouseEventArgs e)
+    {
+        NavigationManager.NavigateTo("/joblistings");
+    }
+}
