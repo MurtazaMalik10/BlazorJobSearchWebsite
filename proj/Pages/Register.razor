@@ -1,0 +1,75 @@
+﻿@page "/register"
+@inject NavigationManager nm
+@using Entities
+@using DAL
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title">Register as a Company</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-danger" role="alert" style="display: @errorMessageDisplay">@errorMessage</div>
+
+                    <form @onsubmit="RegisterCompany">
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" @bind="company.FirstName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" @bind="company.LastName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="role" class="form-label">Role</label>
+                            <select class="form-control" id="role" @bind="company.Roles" required>
+                                <option value="Editor">Editor</option>
+                                <option value="User">User</option>
+                                <!-- Add more options if needed -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" @bind="company.Email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" @bind="company.Password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+    private EntCompany company = new EntCompany();
+    private string errorMessage;
+    private string errorMessageDisplay = "none";
+
+    private void RegisterCompany()
+    {
+        try
+        {
+            // Call the SaveEditor method from DALEditor to save editor data
+            DALCompany.SaveCompany(company);
+
+            errorMessage = "Registration successful.";
+            errorMessageDisplay = "block";
+
+            // Optionally, you can redirect the user to a login page or other page upon successful registration.
+            nm.NavigateTo("/login");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "An error occurred: " + ex.Message;
+            errorMessageDisplay = "block";
+        }
+    }
+}
