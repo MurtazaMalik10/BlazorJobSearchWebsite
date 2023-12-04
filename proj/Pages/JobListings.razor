@@ -3,32 +3,37 @@
 
 @using Entities
 @using DAL
-<h3>Job Listings</h3>
 
-@if (jobs != null && jobs.Any())
-{
-    <div class="row">
+<h3 class="mb-4 text-center">Job Listings</h3>
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    @if (jobs != null && jobs.Any())
+    {
         @foreach (var job in jobs)
         {
-            <div class="col-md-6 mb-4">
+            <div class="col mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Job Title: @job.JobTitle</h5>
+                        <h5 class="card-title">@job.JobTitle</h5>
                         <h6 class="card-subtitle mb-2 text-muted">Job ID: @job.JobId</h6>
-                        <p class="card-text">Description: @job.Description</p>
-                        <!-- Button to view job details -->
-                        <button class="btn btn-primary" @onclick="@(() => ViewJobDetails(job.JobId))">View Job</button>
-                        <!-- You can add more job details here -->
+                        <p class="card-text">@job.Description</p>
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-primary me-2" @onclick="@(() => ViewJobDetails(job.JobId))">View Job</button>
+                            <button class="btn btn-danger" @onclick="@(() => DeleteJob(job.JobId))">Delete Job</button>
+                        </div>
+                        <!-- Additional job details can be added here -->
                     </div>
                 </div>
             </div>
         }
-    </div>
-}
-else
-{
-    <p>No jobs found.</p>
-}
+    }
+    else
+    {
+        <div class="col">
+            <p class="text-center">No jobs found.</p>
+        </div>
+    }
+</div>
 
 @code {
     List<EntJobs> jobs;
@@ -43,5 +48,13 @@ else
     {
         // Redirect to ViewJob component with jobId in the URL
         NavigationManager.NavigateTo($"/viewjob/{jobId}");
+    }
+
+    private void DeleteJob(int jobId)
+    {
+        // Implement logic to delete the job with jobId using DAL
+        // For example: DALJobs.DeleteJob(jobId);
+        // After deletion, you may want to refresh the job list
+        jobs = DALJobs.ShowJob();
     }
 }

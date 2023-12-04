@@ -6,13 +6,98 @@
 
 <HeadContent>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .jumbotron {
+            background-color: cadetblue;
+            color: #fff;
+            padding: 4rem 2rem;
+            border-radius: 0.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .lead {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .custom-btn {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+            text-decoration: none;
+            margin-top: 15px;
+            display: inline-block;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+            .custom-btn:hover {
+                background-color: #c82333;
+                text-decoration: none;
+            }
+
+        .job-card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+            .job-card:hover {
+                transform: scale(1.02);
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            }
+
+        .footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 2rem 0;
+            margin-top: 50px;
+        }
+
+            .footer p {
+                margin-bottom: 5px;
+            }
+
+        .job-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .job-description {
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        /* Additional Custom Styling */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+    </style>
 </HeadContent>
+
 <div class="container">
     <!-- Hero Section -->
     <div class="jumbotron text-center">
         <h1 class="display-4">Welcome to Job Portal</h1>
         <p class="lead">Find your dream job with us</p>
-        <button class="btn btn-primary btn-lg" @onclick="ViewJobListings">View All Job Listings</button>
+        <a href="/joblistings" class="custom-btn btn-lg text-decoration-none">View All Job Listings</a>
     </div>
 
     <!-- Job Listings Section -->
@@ -24,10 +109,10 @@
                 @foreach (var job in latestJobs)
                 {
                     <div class="col-md-6 mb-4">
-                        <div class="card h-100" @onclick="() => ViewJobDetails(job.JobId)">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">Job Title: @job.JobTitle</h5>
-                                <p class="card-text flex-grow-1">@job.Description</p>
+                        <div class="card job-card h-100" @onclick="() => ViewJobDetails(job.JobId)">
+                            <div class="card-body">
+                                <h5 class="card-title job-title">Job Title: @job.JobTitle</h5>
+                                <p class="card-text job-description">@job.Description</p>
                                 <!-- Other job details -->
                             </div>
                         </div>
@@ -49,7 +134,6 @@
             <p>Email: contact@jobportal.com | Phone: +1234567890</p>
         </div>
     </footer>
-
 </div>
 
 @code {

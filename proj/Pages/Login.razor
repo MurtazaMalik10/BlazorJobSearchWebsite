@@ -1,9 +1,10 @@
 ﻿@page "/login"
-@using proj.Auth 
+@using proj.Auth
 @using Microsoft.Extensions.Configuration
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.JSInterop
 @using Entities
+@using DAL
 
 @inject IConfiguration Configuration
 @inject NavigationManager nm
@@ -22,7 +23,7 @@
                     <div class="alert alert-danger" role="alert" style="display: @errorMessageDisplay">@errorMessage</div>
 
                     <EditForm Model="company">
-                 
+
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="Email" @bind="company.Email" required>
@@ -32,7 +33,7 @@
                             <input type="password" class="form-control" id="Password" @bind="company.Password" required>
                         </div>
                         <button @onclick="Authenticate" class="btn btn-primary">Login </button>
-               
+
                     </EditForm>
                 </div>
             </div>
@@ -59,17 +60,15 @@
 
 
 
-    public async Task Authenticate()
+    private async Task Authenticate()
     {
         var userAccount = userAccountService.GetByUserName(company);
 
-        if (userAccount == null || string.IsNullOrEmpty(userAccount.FirstName) || userAccount.Roles == null)
+        if (userAccount.FirstName == null || userAccount.Roles == null)
         {
-            errorMessage = "Invalid Credentials";
-            errorMessageDisplay = "block"; // Display the error message
+            await js.InvokeVoidAsync("alert", "Invalid Credentials");
             return;
         }
-
         var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
         await customAuthStateProvider.UpdateAuthenticationState(new UserSession
             {
@@ -77,7 +76,6 @@
                 Roles = userAccount.Roles
             });
 
-        // Navigate after successful authentication
         nm.NavigateTo("/");
     }
 

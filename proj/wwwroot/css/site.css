@@ -10,11 +10,60 @@ html, body, div, p, ul, li {
 
 /* Body and general styles */
 body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background-color: #f5f5f5;
     color: #333;
     line-height: 1.6;
+    width: 100%;
     overflow-x: hidden; /* Hide horizontal overflow */
+}
+/* Font styles */
+body {
+    font-family: 'Roboto', sans-serif; /* Use Roboto font as the primary font */
+    font-size: 16px; /* Set a comfortable font size */
+    font-weight: 400; /* Use a normal font weight */
+    line-height: 1.6; /* Optimal line height for readability */
+}
+.title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    /* Additional styles */
+}
+.bold-text {
+    font-weight: 700;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    /* Define specific styles for headings if needed */
+    font-family: 'Roboto', sans-serif; /* Use Roboto for headings */
+    font-weight: 700; /* Adjust font weight for headings */
+    line-height: 1.4; /* Slightly reduced line height for headings */
+}
+.job-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+    .job-card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px);
+    }
+
+.job-title {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.job-description {
+    color: #555;
+}
+
+/* Additional styles for responsiveness */
+@media (max-width: 767px) {
+    .job-card {
+        margin-bottom: 20px;
+    }
 }
 
 /* Links and buttons */
@@ -64,6 +113,7 @@ a, .btn-link {
     #blazor-error-ui .reload {
         display: none;
     }
+
     #blazor-error-ui .dismiss {
         cursor: pointer;
         position: absolute;
@@ -154,8 +204,6 @@ a, .btn-link {
     }
 }
 
-
-
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -174,3 +222,43 @@ a, .btn-link {
 .card {
     animation: fadeIn 0.5s ease-in-out;
 }
+
+.jumbotron {
+    margin-top: 20px; /* Adjust the spacing between carousel and the hero section */
+}
+
+/* Navbar styles */
+/*.navbar {
+    background-color: #333;*/ /* Update with your preferred color */
+/*}
+
+.navbar-brand {
+    color: white;*/ /* Change the color of the brand text */
+/*}
+
+.navbar-toggler-icon {
+    background-color: white;*/ /* Change the color of the toggler icon */
+/*}
+
+.navbar-nav .nav-link {
+    color: white;*/ /* Change the color of the nav links */
+/*}*/
+
+/* Adjustments for active link */
+/*.navbar-nav .nav-item.active .nav-link {
+    color: red;*/ /* Change the color of the active nav link */
+/*}*/
+
+/* Adjustments for hover effect */
+/*.navbar-nav .nav-link:hover {
+    color: yellow;*/ /* Change the color of nav links on hover */
+/*}*/
+
+/* Center the brand/logo on large screens */
+/*@media (min-width: 768px) {
+    .navbar-custom .navbar-brand {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+}*/

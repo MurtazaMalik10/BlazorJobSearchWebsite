@@ -4,41 +4,49 @@
 @using Entities
 @using DAL
 
-<div class="container">
-    <h3>Create Job</h3>
-    <div class="row">
+<div class="container mt-5">
+    <h3 class="mb-4 text-center">Create Job</h3>
+    <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="form-group">
-                <label for="companyId">Company ID:</label>
-                <input type="text" id="companyId" class="form-control" @bind="newJob.CompanyID" />
-            </div><div class="form-group">
-                <label for="jobTitle">Job Title:</label>
-                <input type="text" id="jobTitle" class="form-control" @bind="newJob.JobTitle" />
-            </div>
-            <div class="form-group">
-                <label for="description">Description:</label>
-                <textarea id="description" class="form-control" rows="5" @bind="newJob.Description"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="categoryId">Category ID:</label>
-                <input type="text" id="categoryId" class="form-control" @bind="newJob.CatId" />
-            </div>
-            <div class="form-group">
-                <label for="thumbnail">Thumbnail:</label>
-                <input type="text" id="thumbnail" class="form-control" @bind="newJob.Thumbnail" />
-            </div>
-            
-            <div class="form-group">
-                <label for="isActive">Is Active:</label>
-                <input type="checkbox" id="isActive" class="form-check-input" @bind="newJob.IsActive" />
-            </div>
-            <div class="form-group">
-                <label for="currentTime">Current Time:</label>
-                <input type="datetime-local" id="currentTime" class="form-control" @bind="newJob.TimeUploaded" />
-            </div>
-            <!-- Add more fields as needed based on your DALJobs.cs fields -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="companyId" class="form-label">Company ID:</label>
+                        <input type="text" id="companyId" class="form-control" @bind="newJob.CompanyID" />
+                    </div>
+                    <div class="form-group">
+                        <label for="jobTitle" class="form-label">Job Title:</label>
+                        <input type="text" id="jobTitle" class="form-control" @bind="newJob.JobTitle" />
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="form-label">Description:</label>
+                        <textarea id="description" class="form-control" rows="5" @bind="newJob.Description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="categoryId" class="form-label">Category ID:</label>
+                        <input type="text" id="categoryId" class="form-control" @bind="newJob.CatId" />
+                    </div>
+                    <div class="form-group">
+                        <label for="thumbnail" class="form-label">Thumbnail:</label>
+                        <input type="text" id="thumbnail" class="form-control" @bind="newJob.Thumbnail" />
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="isActive" class="form-check-input" @bind="newJob.IsActive" />
+                        <label class="form-check-label" for="isActive">Is Active</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="currentTime" class="form-label">Current Time:</label>
+                        <input type="datetime-local" id="currentTime" class="form-control" @bind="newJob.TimeUploaded" />
+                    </div>
 
-            <button @onclick="CreateJob" class="btn btn-primary">Create Job</button>
+                    <!-- Add more fields as needed based on your DALJobs.cs fields -->
+
+                    <div class="text-center">
+                        <!-- Center align the button -->
+                        <button @onclick="CreateJob" class="btn btn-primary mt-3">Create Job</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

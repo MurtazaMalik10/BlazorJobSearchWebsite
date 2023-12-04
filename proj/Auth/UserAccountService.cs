@@ -6,12 +6,12 @@ namespace proj.Auth
 {
     public class UserAccountService
     {
-        //private List<EntEditor> editors = new List<EntEditor>();
+        private List<EntCompany> companies = new List<EntCompany>();
 
-        //public UserAccountService() 
-        //{
-        //    editors = DALEditor.ShowEditor();
-        //}
+        public UserAccountService()
+        {
+            companies = DALCompany.GetCompanyUsingLinq();
+        }
         public EntCompany? GetByUserName(EntCompany _ec)
         {
             return DALCompany.ShowCompany(_ec.Email, _ec.Password);

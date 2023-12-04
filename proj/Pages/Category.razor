@@ -1,0 +1,170 @@
+﻿@page "/categories"
+@attribute [Authorize(Roles = "Company")]
+
+@using DAL
+@using Entities
+
+<div class="container">
+    <div class="row">
+        <h3>Categories</h3>
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary" @onclick="ShowAddCategoryForm" data-bs-toggle="modal" data-bs-target="#saveModal">
+                Add New
+            </button>
+
+            @if (categories != null && categories.Count > 0)
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <AuthorizeView Roles="Company">
+                                <th>Actions</th>
+                            </AuthorizeView>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var category in categories)
+                        {
+                            <tr>
+                                <td>@category.Category</td>
+                                <td>
+                                    <AuthorizeView Roles="Company">
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#saveModal" @onclick="()=>Edit(category.Category, category.Id)">Edit</button>
+                                        <button class="btn btn-danger" @onclick="() => DeleteCategory(category.Id)">Delete</button>
+                                    </AuthorizeView>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No categories found.</p>
+            }
+        </div>
+    </div>
+</div>
+
+<section>
+    <!-- Modal -->
+    <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <EditForm Model="entCategory" OnSubmit="SaveCategory">
+                        <div class="d-flex justify-content-between">
+                            <input id="categoryName" class="form-control" type="text" placeholder="Category Name" @bind=entCategory.Category />
+                            <button class="btn btn-primary" type="submit" data-bs-dismiss="@IsEmptyText">@ButtonName</button>
+                        </div>
+                        <span class="small text-danger">@ErrorMessage</span>
+                    </EditForm>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@code {
+    private bool showAddForm = false;
+    private EntCategory entCategory { get; set; } = new EntCategory();
+    private int? selectedCategoryId;
+
+    private List<EntCategory> categories = new List<EntCategory>(); // Declare the categories list here
+
+    protected override void OnInitialized()
+    {
+        RefreshCategoryList();
+    }
+
+    private void RefreshCategoryList()
+    {
+        categories = CategoryDAL.GetCategory();
+    }
+
+    private void UpdateCategory(EntCategory category)
+    {
+        selectedCategoryId = category.Id;
+        entCategory = new EntCategory { Id = category.Id, Category = category.Category };
+        showAddForm = true;
+    }
+
+    private void DeleteCategory(int categoryId)
+    {
+        CategoryDAL.DeleteCategory(categoryId);
+        RefreshCategoryList();
+    }
+
+    private void ShowAddCategoryForm()
+    {
+        ButtonName = "Save";
+        entCategory = new EntCategory(); // Clear the current category data
+        IsEmptyText = "modal"; // Show the modal
+        // Any other initialization for the add category form
+    }
+
+    private void ClearForm()
+    {
+        showAddForm = false;
+        selectedCategoryId = null;
+        entCategory = new EntCategory();
+    }
+
+    [Parameter] public string? edit { get; set; }
+    public string? editvalue { get; set; }
+    public string? IsEmptyText { get; set; }
+    public string? ErrorMessage { get; set; }
+    public string? ButtonName { get; set; } = "Save";
+
+    private void SaveCategory()
+    {
+        if (ButtonName == "Save")
+        {
+            if (!string.IsNullOrEmpty(entCategory.Category))
+            {
+                IsEmptyText = "modal";
+                CategoryDAL.SaveCategory(entCategory);
+                RefreshCategoryList();
+            }
+            else
+            {
+                ErrorMessage = "Please enter valid category name";
+            }
+        }
+        else if (ButtonName == "Update")
+        {
+            if (!string.IsNullOrEmpty(entCategory.Category))
+            {
+                IsEmptyText = "modal";
+                ButtonName = "Save";
+                CategoryDAL.UpdateCategory(entCategory);
+                RefreshCategoryList();
+                //nm.NavigateTo("categories");
+            }
+            else
+            {
+                ErrorMessage = "Please enter valid category name";
+            }
+        }
+        else
+        {
+
+        }
+    }
+
+    private void Edit(string catName, int id)
+    {
+        ButtonName = "Update";
+        entCategory.Category = catName;
+        entCategory.Id = id;
+    }
+
+}
