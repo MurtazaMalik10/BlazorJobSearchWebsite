@@ -59,15 +59,17 @@
 
 
 
-    private async Task Authenticate()
+    public async Task Authenticate()
     {
         var userAccount = userAccountService.GetByUserName(company);
 
-        if (userAccount.FirstName==null || userAccount.Roles==null)
+        if (userAccount == null || string.IsNullOrEmpty(userAccount.FirstName) || userAccount.Roles == null)
         {
-            await js.InvokeVoidAsync("alert", "Invalid Credentials");
+            errorMessage = "Invalid Credentials";
+            errorMessageDisplay = "block"; // Display the error message
             return;
         }
+
         var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
         await customAuthStateProvider.UpdateAuthenticationState(new UserSession
             {
@@ -75,7 +77,8 @@
                 Roles = userAccount.Roles
             });
 
-            nm.NavigateTo("/jobs");
+        // Navigate after successful authentication
+        nm.NavigateTo("/");
     }
 
 

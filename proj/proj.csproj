@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\Categories.razor" />
+    <Content Remove="Pages\.razor" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,15 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Categories.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\Categories.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\Categories.razor" />
+    <None Include="Pages\.razor" />
   </ItemGroup>
 
 </Project>

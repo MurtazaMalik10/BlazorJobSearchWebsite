@@ -1,13 +1,11 @@
-﻿@page "/cat"
+﻿@page "/categories"
 @inject CategoryDAL CategoryDAL
-@using DAL
 @using Entities
-@using System.Collections.Generic
-@using System.Linq
+@using DAL
 
 <h3>Categories</h3>
 
-@* <!-- Display existing categories -->
+<!-- Display existing categories -->
 @if (categories != null && categories.Any())
 {
     <ul>
@@ -29,7 +27,7 @@ else
 
 <!-- Form for adding or updating categories -->
 <div>
-    <h4>Add/Update Category</h4>
+    <h4>Add Category</h4>
     <input type="text" @bind="newCategory.Category" />
     <button @onclick="SaveCategory">Save</button>
 </div>
@@ -41,40 +39,35 @@ else
     protected override void OnInitialized()
     {
         // Fetch existing categories when the component is initialized
+        RefreshCategories();
+    }
+
+    private void RefreshCategories()
+    {
         categories = CategoryDAL.GetCategory();
     }
 
-    // Method to save/update a category
     private void SaveCategory()
     {
-        if (newCategory.Id == 0)
+        if (string.IsNullOrWhiteSpace(newCategory.Category))
         {
-            // If Id is 0, it's a new category, so save it
-            CategoryDAL.SaveCategory(newCategory);
-        }
-        else
-        {
-            // If Id is not 0, it's an existing category, so update it
-            CategoryDAL.UpdateCategory(newCategory);
+            // Implement validation for empty category names
+            return;
         }
 
-        // Refresh category list after adding/updating
-        categories = CategoryDAL.GetCategory();
-        newCategory = new EntCategory(); // Clear the input after adding/updating
+        CategoryDAL.SaveCategory(newCategory);
+        RefreshCategories();
+        newCategory = new EntCategory(); // Clear the input after adding
     }
 
-    // Method to delete a category
     private void DeleteCategory(int categoryId)
     {
         CategoryDAL.DeleteCategory(categoryId);
-
-        // Refresh category list after deletion
-        categories = CategoryDAL.GetCategory();
+        RefreshCategories();
     }
 
-    // Method to populate the form for editing a category
     private void EditCategory(EntCategory category)
     {
-        newCategory = category; // Set the selected category for editing
+        // Add logic to handle editing category
     }
-} *@
+}

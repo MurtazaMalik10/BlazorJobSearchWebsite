@@ -107,6 +107,7 @@ namespace DAL
                             job = new EntJobs
                             {
                                 JobId = Convert.ToInt32(reader["JobId"]),
+                                CompanyID = reader["CompanyID"].ToString(),
                                 JobTitle = reader["JobTitle"].ToString(),
                                 Description = reader["Description"].ToString(),
                                 Thumbnail = reader["Thumbnail"].ToString(),

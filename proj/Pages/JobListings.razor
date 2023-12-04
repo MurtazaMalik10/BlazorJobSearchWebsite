@@ -16,8 +16,8 @@
                         <h5 class="card-title">Job Title: @job.JobTitle</h5>
                         <h6 class="card-subtitle mb-2 text-muted">Job ID: @job.JobId</h6>
                         <p class="card-text">Description: @job.Description</p>
-                        <!-- Button to delete job -->
-                        <button class="btn btn-danger" @onclick="@(() => DeleteJob(job.JobId))">Delete Job</button>
+                        <!-- Button to view job details -->
+                        <button class="btn btn-primary" @onclick="@(() => ViewJobDetails(job.JobId))">View Job</button>
                         <!-- You can add more job details here -->
                     </div>
                 </div>
@@ -39,12 +39,9 @@ else
         jobs = DALJobs.ShowJob();
     }
 
-    private void DeleteJob(int jobId)
+    private void ViewJobDetails(int jobId)
     {
-        // Delete the job based on JobID
-        DALJobs.DeleteJob(jobId);
-
-        // Refresh the job list after deletion
-        jobs = DALJobs.ShowJob();
+        // Redirect to ViewJob component with jobId in the URL
+        NavigationManager.NavigateTo($"/viewjob/{jobId}");
     }
 }

@@ -1,0 +1,41 @@
+﻿@page "/viewjob/{JobId:int}"
+@using Entities
+@using DAL
+
+<HeadContent>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</HeadContent>
+
+<h3 class="mt-4 mb-3 text-center">View Job Details</h3>
+
+<div class="container">
+    @if (job != null)
+    {
+        <div class="card mb-4">
+            <div class="card-body">
+                <h4 class="card-title">Job ID: @job.JobId</h4>
+                <p class="card-text">Company ID: @job.CompanyID</p>
+                <h5 class="card-title">Job Title: @job.JobTitle</h5>
+                <p class="card-text">Description: @job.Description</p>
+                <!-- Display other job details here -->
+            </div>
+        </div>
+    }
+    else
+    {
+        <p>No job details found.</p>
+    }
+</div>
+
+@code {
+    EntJobs job;
+
+    [Parameter]
+    public int JobId { get; set; }
+
+    protected override void OnInitialized()
+    {
+        // Fetch job details based on the JobId from the route parameter
+        job = DALJobs.GetJobById(JobId);
+    }
+}
