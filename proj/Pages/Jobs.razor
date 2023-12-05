@@ -1,8 +1,13 @@
 ﻿@page "/jobs"
 @inject NavigationManager NavigationManager
+@inject IFileUpload fileUpload
+@inject IWebHostEnvironment env
+@inject AuthenticationStateProvider customAuthenticationStateProvider
+
 
 @using Entities
 @using DAL
+@using proj.Service
 
 <div class="container mt-5">
     <h3 class="mb-4 text-center">Create Job</h3>
@@ -27,8 +32,16 @@
                         <input type="text" id="categoryId" class="form-control" @bind="newJob.CatId" />
                     </div>
                     <div class="form-group">
-                        <label for="thumbnail" class="form-label">Thumbnail:</label>
-                        <input type="text" id="thumbnail" class="form-control" @bind="newJob.Thumbnail" />
+                        <label for="thumbnail">Thumbnail</label>
+                        <BlazorInputFile.InputFile OnChange="HandleFileSelected" id="thumbnail" class="form-control" />
+            
+                    @if (file != null)
+                    {
+                        <p>Name: @file.Name</p>
+                        <p>Type: @file.Type</p>
+                        <p>Size: @file.Size</p>
+                        <!-- Display the selected file information -->
+                    }
                     </div>
                     <div class="form-check">
                         <input type="checkbox" id="isActive" class="form-check-input" @bind="newJob.IsActive" />
@@ -53,6 +66,7 @@
 
 @code {
     EntJobs newJob = new EntJobs();
+    private List<EntCategory> categories = new List<EntCategory>();
 
     // Method to create a new job
     protected void CreateJob()
@@ -62,5 +76,23 @@
 
         // Redirect to job listings page after creating the job
         NavigationManager.NavigateTo("/joblistings");
+    }
+    IFileListEntry file;
+    BlazorInputFile.InputFile thumbnailFile;
+
+    async Task HandleFileSelected(IFileListEntry[] files)
+    {
+        file = files.FirstOrDefault();
+
+        if (file != null)
+        {
+            // Save the file to the server
+            fileUpload.UploadAsync(file, newJob);
+
+            // Save the file information to the Thumbnail attribute
+            newJob.Thumbnail = file.Name; // You can modify this based on your database schema
+
+            StateHasChanged(); // Ensure that the component is re-rendered to display the file information
+        }
     }
 }

@@ -7,20 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="BlazorInputFile" Version="0.2.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj" />
     <ProjectReference Include="..\Entities\Entities.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\.razor" />
   </ItemGroup>
 
 </Project>

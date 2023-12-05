@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.AspNetCore.Components.Web;
 using proj.Auth;
 using proj.Data;
+using proj.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,7 @@ builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddScoped<ProtectedSessionStorage>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 builder.Services.AddSingleton<UserAccountService>();
-
+builder.Services.AddScoped<IFileUpload, FileUpload>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

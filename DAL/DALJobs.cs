@@ -22,9 +22,9 @@ namespace DAL
                 // Make sure the parameter names and types match the stored procedure parameters
                 cmd.Parameters.AddWithValue("@companyId", jobs.CompanyID);
                 cmd.Parameters.AddWithValue("@title", jobs.JobTitle);
-                cmd.Parameters.AddWithValue("@thumbnail", jobs.Thumbnail); // Assuming your database has a field for storing image as text or varchar(max)
                 cmd.Parameters.AddWithValue("@catId", jobs.CatId);
                 cmd.Parameters.AddWithValue("@description", jobs.Description);
+                cmd.Parameters.AddWithValue("@thumbnail", jobs.Thumbnail); // Assuming your database has a field for storing image as text or varchar(max)
                 cmd.Parameters.AddWithValue("@isactive", jobs.IsActive);
                 cmd.Parameters.AddWithValue("@currentTime", jobs.TimeUploaded);
 
@@ -35,30 +35,30 @@ namespace DAL
 
 
 
-        public static List<EntJobs> ShowCompanyJob(string loggedInCompanyID)
-        {
-            List<EntJobs> jobList = new List<EntJobs>();
+        //public static List<EntJobs> ShowCompanyJob(string loggedInCompanyID)
+        //{
+        //    List<EntJobs> jobList = new List<EntJobs>();
 
-            SqlConnection con = DBHelper.GetConnection();
-            con.Open();
-            SqlCommand cmd = new SqlCommand("SP_ShowCompanyJob", con);
-            cmd.Parameters.Add("@companyId", SqlDbType.NVarChar).Value = loggedInCompanyID; // Use the correct parameter name
-            cmd.CommandType = CommandType.StoredProcedure;
-            SqlDataReader reader = cmd.ExecuteReader();
+        //    SqlConnection con = DBHelper.GetConnection();
+        //    con.Open();
+        //    SqlCommand cmd = new SqlCommand("SP_ShowCompanyJob", con);
+        //    cmd.Parameters.Add("@companyId", SqlDbType.NVarChar).Value = loggedInCompanyID; // Use the correct parameter name
+        //    cmd.CommandType = CommandType.StoredProcedure;
+        //    SqlDataReader reader = cmd.ExecuteReader();
 
-            while (reader.Read())
-            {
-                EntJobs ej = new EntJobs();
+        //    while (reader.Read())
+        //    {
+        //        EntJobs ej = new EntJobs();
 
-                ej.JobTitle = reader["JobTitle"].ToString();
-                ej.CompanyID = reader["companyID"].ToString();
-                ej.CatName = reader["CategoryName"].ToString();
-                jobList.Add(ej);
-            }
+        //        ej.JobTitle = reader["JobTitle"].ToString();
+        //        ej.CompanyID = reader["companyID"].ToString();
+        //        ej.CatName = reader["CategoryName"].ToString();
+        //        jobList.Add(ej);
+        //    }
 
-            con.Close();
-            return jobList;
-        }
+        //    con.Close();
+        //    return jobList;
+        //}
 
 
         public static List<EntJobs> ShowJob()
@@ -79,7 +79,7 @@ namespace DAL
                 ej.JobTitle = reader["JobTitle"].ToString();
                 ej.CatId = (int?)Convert.ToDecimal(reader["CatId"]);
                 ej.Description = reader["Description"].ToString();
-
+                ej.Thumbnail = reader["Thumbnail"].ToString();
 
                 jobList.Add(ej);
             }
@@ -153,6 +153,7 @@ namespace DAL
                 {
                     EntJobs job = new EntJobs();
                     job.JobId = Convert.ToInt32(reader["JobId"]);
+                    job.Thumbnail = reader["Thumbnail"].ToString();
                     job.JobTitle = reader["JobTitle"].ToString();
                     job.Description = reader["Description"].ToString();
 

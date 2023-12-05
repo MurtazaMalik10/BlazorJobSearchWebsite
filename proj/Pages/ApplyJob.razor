@@ -1,0 +1,59 @@
+﻿@page "/apply/{JobId:int}"
+@inject NavigationManager NavigationManager
+
+<HeadContent>
+    <!-- Add any necessary CSS or head content -->
+</HeadContent>
+
+<div class="container">
+    <h3 class="mt-4 mb-3 text-center">Apply for Job</h3>
+    <form>
+        <div class="mb-3">
+            <label for="name" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="name" @bind="fullName" />
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" @bind="email" />
+        </div>
+        <div class="mb-3">
+            <label for="contactNumber" class="form-label">Contact Number</label>
+            <input type="text" class="form-control" id="contactNumber" @bind="contactNumber" />
+        </div>
+        @* <div class="mb-3">
+            <label for="cv" class="form-label">Upload CV (PDF)</label>
+            <input type="file" class="form-control" id="cv" @onchange="HandleFileUpload" accept=".pdf" />
+        </div> *@
+        <div class="text-center">
+            <button class="btn btn-primary" @onclick="SubmitApplication">Submit Application</button>
+        </div>
+    </form>
+</div>
+
+@code {
+    private string fullName;
+    private string email;
+    private string contactNumber;
+    private byte[] cvFileContent;
+
+    [Parameter]
+    public int JobId { get; set; }
+
+    private void HandleFileUpload(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        var buffer = new byte[file.Size];
+        file.OpenReadStream().Read(buffer);
+        cvFileContent = buffer;
+    }
+
+    private void SubmitApplication()
+    {
+        // Handle logic for submitting the application
+        // You can use the captured data (fullName, email, contactNumber, cvFileContent) here
+        // For example, send the application details to the server or save in the database
+
+        // Redirect to a confirmation page or any other appropriate action after submission
+        NavigationManager.NavigateTo("/confirmation");
+    }
+}
