@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Entities;
 
 namespace DAL
@@ -24,7 +19,7 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@title", jobs.JobTitle);
                 cmd.Parameters.AddWithValue("@catId", jobs.CatId);
                 cmd.Parameters.AddWithValue("@description", jobs.Description);
-                cmd.Parameters.AddWithValue("@thumbnail", jobs.Thumbnail); // Assuming your database has a field for storing image as text or varchar(max)
+                cmd.Parameters.AddWithValue("@thumbnail", jobs.Thumbnail); // Ensure this matches the expected type and size in the database
                 cmd.Parameters.AddWithValue("@isactive", jobs.IsActive);
                 cmd.Parameters.AddWithValue("@currentTime", jobs.TimeUploaded);
 
@@ -35,30 +30,30 @@ namespace DAL
 
 
 
-        //public static List<EntJobs> ShowCompanyJob(string loggedInCompanyID)
-        //{
-        //    List<EntJobs> jobList = new List<EntJobs>();
+        public static List<EntJobs> ShowCompanyJob(string loggedInCompanyID)
+        {
+            List<EntJobs> jobList = new List<EntJobs>();
 
-        //    SqlConnection con = DBHelper.GetConnection();
-        //    con.Open();
-        //    SqlCommand cmd = new SqlCommand("SP_ShowCompanyJob", con);
-        //    cmd.Parameters.Add("@companyId", SqlDbType.NVarChar).Value = loggedInCompanyID; // Use the correct parameter name
-        //    cmd.CommandType = CommandType.StoredProcedure;
-        //    SqlDataReader reader = cmd.ExecuteReader();
+            SqlConnection con = DBHelper.GetConnection();
+            con.Open();
+            SqlCommand cmd = new SqlCommand("SP_ShowCompanyJob", con);
+            cmd.Parameters.Add("@companyId", SqlDbType.NVarChar).Value = loggedInCompanyID; // Use the correct parameter name
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataReader reader = cmd.ExecuteReader();
 
-        //    while (reader.Read())
-        //    {
-        //        EntJobs ej = new EntJobs();
+            while (reader.Read())
+            {
+                EntJobs ej = new EntJobs();
 
-        //        ej.JobTitle = reader["JobTitle"].ToString();
-        //        ej.CompanyID = reader["companyID"].ToString();
-        //        ej.CatName = reader["CategoryName"].ToString();
-        //        jobList.Add(ej);
-        //    }
+                ej.JobTitle = reader["JobTitle"].ToString();
+                ej.CompanyID = reader["companyID"].ToString();
+                ej.CatName = reader["CategoryName"].ToString();
+                jobList.Add(ej);
+            }
 
-        //    con.Close();
-        //    return jobList;
-        //}
+            con.Close();
+            return jobList;
+        }
 
 
         public static List<EntJobs> ShowJob()

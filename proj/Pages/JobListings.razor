@@ -18,7 +18,7 @@
                         <div class="thumbnail-column me-4">
                             @if (!string.IsNullOrEmpty(job.Thumbnail))
                             {
-                                <img src="@job.Thumbnail" alt="Post Thumbnail" class="img-fluid" />
+                                <img class="thumbnail-img" src="@($"data:image/png;base64,{job.Thumbnail}")" alt="Thumbnail" />
                             }
                         </div>
 
@@ -46,26 +46,34 @@
     }
 </div>
 
+<style>
+    /* Define the CSS for thumbnail images */
+    .thumbnail-img {
+        max-width: 100px; /* Adjust the maximum width as needed */
+        max-height: 100px; /* Adjust the maximum height as needed */
+        object-fit: cover; /* Maintain aspect ratio and cover the area */
+        border-radius: 5px; /* Add border-radius for rounded corners */
+    }
+</style>
+
 @code {
     List<EntJobs> jobs;
 
     protected override void OnInitialized()
     {
         // Fetch all jobs from the database
-        jobs = DALJobs.ShowJob();
+        jobs = DALJobs.GetLatestJobsWithThumbnails();
     }
 
-    private void ViewJobDetails(int jobId)
+    private void ViewJobDetails(int JobId)
     {
         // Redirect to ViewJob component with jobId in the URL
-        NavigationManager.NavigateTo($"/viewjob/{jobId}");
+        NavigationManager.NavigateTo($"/viewjob/{JobId}");
     }
 
-    private void DeleteJob(int jobId)
+    private void DeleteJob(int JobId)
     {
-        // Implement logic to delete the job with jobId using DAL
-        // For example: DALJobs.DeleteJob(jobId);
-        // After deletion, you may want to refresh the job list
-        jobs = DALJobs.ShowJob();
+        DALJobs.DeleteJob(JobId); // Call DAL method to delete job
+        jobs = DALJobs.ShowJob(); // Refresh job list after deletion
     }
 }

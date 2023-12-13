@@ -74,11 +74,11 @@
 </section>
 
 @code {
-    private bool showAddForm = false;
     private EntCategory entCategory { get; set; } = new EntCategory();
-    private int? selectedCategoryId;
-
-    private List<EntCategory> categories = new List<EntCategory>(); // Declare the categories list here
+    private List<EntCategory> categories = new List<EntCategory>();
+    private string IsEmptyText { get; set; }
+    private string ErrorMessage { get; set; }
+    private string ButtonName { get; set; } = "Save";
 
     protected override void OnInitialized()
     {
@@ -92,9 +92,7 @@
 
     private void UpdateCategory(EntCategory category)
     {
-        selectedCategoryId = category.Id;
-        entCategory = new EntCategory { Id = category.Id, Category = category.Category };
-        showAddForm = true;
+        // Update logic if needed
     }
 
     private void DeleteCategory(int categoryId)
@@ -106,23 +104,14 @@
     private void ShowAddCategoryForm()
     {
         ButtonName = "Save";
-        entCategory = new EntCategory(); // Clear the current category data
-        IsEmptyText = "modal"; // Show the modal
-        // Any other initialization for the add category form
+        entCategory = new EntCategory();
+        IsEmptyText = "modal";
     }
 
     private void ClearForm()
     {
-        showAddForm = false;
-        selectedCategoryId = null;
-        entCategory = new EntCategory();
+        // Clear form logic if needed
     }
-
-    [Parameter] public string? edit { get; set; }
-    public string? editvalue { get; set; }
-    public string? IsEmptyText { get; set; }
-    public string? ErrorMessage { get; set; }
-    public string? ButtonName { get; set; } = "Save";
 
     private void SaveCategory()
     {
@@ -133,10 +122,11 @@
                 IsEmptyText = "modal";
                 CategoryDAL.SaveCategory(entCategory);
                 RefreshCategoryList();
+                ClearForm(); // Clear the form after successful addition
             }
             else
             {
-                ErrorMessage = "Please enter valid category name";
+                ErrorMessage = "Please enter a valid category name";
             }
         }
         else if (ButtonName == "Update")
@@ -147,24 +137,21 @@
                 ButtonName = "Save";
                 CategoryDAL.UpdateCategory(entCategory);
                 RefreshCategoryList();
-                //nm.NavigateTo("categories");
+                ClearForm();
             }
             else
             {
-                ErrorMessage = "Please enter valid category name";
+                ErrorMessage = "Please enter a valid category name";
             }
         }
-        else
-        {
-
-        }
+        // Other conditions or actions
     }
 
-    private void Edit(string catName, int id)
+    private void Edit(string categoryName, int id)
     {
         ButtonName = "Update";
-        entCategory.Category = catName;
+        entCategory.Category = categoryName;
         entCategory.Id = id;
     }
-
 }
+

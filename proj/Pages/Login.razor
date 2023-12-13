@@ -50,15 +50,10 @@
     </div>
 </div>
 
-
 @code {
     private EntCompany company = new EntCompany();
     private string errorMessage;
     private string errorMessageDisplay = "none";
-    private string email;
-    private string password;
-
-
 
     private async Task Authenticate()
     {
@@ -76,9 +71,7 @@
                 Roles = userAccount.Roles
             });
 
+
         nm.NavigateTo("/");
     }
-
-
-
 }

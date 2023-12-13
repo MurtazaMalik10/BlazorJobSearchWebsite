@@ -5,105 +5,118 @@
 @using DAL
 
 <HeadContent>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* Custom Styles */
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
             color: #333;
+            line-height: 1.6;
             margin-top: 20px;
         }
 
-        .jumbotron {
-            background-color: cadetblue;
-            color: #fff;
-            padding: 4rem 2rem;
-            border-radius: 0.5rem;
-            margin-bottom: 3rem;
+        /* Custom Classes for Styling */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
         }
 
-        .lead {
-            font-size: 1.25rem;
-            font-weight: 500;
+        /* Hero Section Styling */
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: #333;
             margin-bottom: 20px;
-            font-family: 'Roboto', sans-serif;
         }
 
-        .custom-btn {
+        .hero p {
+            font-size: 1.25rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .btn-hero {
+            display: inline-block;
+            padding: 12px 24px;
             background-color: #dc3545;
             color: #fff;
-            border: none;
-            padding: 10px 24px;
+            text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s ease-in-out;
-            text-decoration: none;
-            margin-top: 15px;
-            display: inline-block;
-            font-family: 'Roboto', sans-serif;
-            font-weight: 500;
-            font-size: 1rem;
         }
 
-            .custom-btn:hover {
-                background-color: #c82333;
-                text-decoration: none;
-            }
-
-        .job-card {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            transition: transform 0.3s ease-in-out;
+        .btn-hero:hover {
+            background-color: #c82333;
         }
 
-            .job-card:hover {
-                transform: scale(1.02);
-                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            }
-
-        .footer {
-            background-color: #343a40;
-            color: #fff;
-            padding: 2rem 0;
+        /* Job Listings Styling */
+        .job-listings {
             margin-top: 50px;
         }
 
-            .footer p {
-                margin-bottom: 5px;
-            }
+        .job-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
 
         .job-title {
             font-size: 1.25rem;
-            font-weight: 500;
+            font-weight: bold;
             margin-bottom: 10px;
         }
 
         .job-description {
             font-size: 1rem;
+            color: #666;
             margin-bottom: 15px;
         }
 
-        /* Additional Custom Styling */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
+        /* Footer Styling */
+        .footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 40px 0;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .footer p {
+            margin-bottom: 10px;
         }
     </style>
 </HeadContent>
 
 <div class="container">
     <!-- Hero Section -->
-    <div class="jumbotron text-center">
-        <h1 class="display-4">Welcome to Job Portal</h1>
-        <p class="lead">Find your dream job with us</p>
-        <a href="/joblistings" class="custom-btn btn-lg text-decoration-none">View All Job Listings</a>
+    <div class="hero">
+        <h1>Welcome to Job Portal</h1>
+        <p>Find Your Dream Job With Us</p>
+        <a href="/joblistings" class="btn-hero">View All Job Listings</a>
     </div>
 
     <!-- Job Listings Section -->
     @if (latestJobs != null && latestJobs.Any())
     {
-        <div id="job-listings" class="mt-5">
+        <div class="job-listings">
             <h2 class="text-center mb-4">Latest Job Listings</h2>
             <div class="row">
                 @foreach (var job in latestJobs)
@@ -127,14 +140,15 @@
     }
 
     <!-- Footer -->
-    <footer class="footer mt-5">
-        <div class="container text-center">
-            <p>&copy; 2023 Job Portal - All rights reserved</p>
-            <p>Designed by Murtaza and Sons</p>
-            <p>Email: contact@jobportal.com | Phone: +1234567890</p>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 Best Job Portal - All rights reserved</p>
+            <p>Designed by Top Designers</p>
+            <p>Email: contact@bestjobportal.com | Phone: 1234567890</p>
         </div>
     </footer>
 </div>
+
 
 @code {
     List<EntJobs> latestJobs;

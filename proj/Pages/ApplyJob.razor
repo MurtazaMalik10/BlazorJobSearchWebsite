@@ -1,29 +1,40 @@
 ﻿@page "/apply/{JobId:int}"
+@using Microsoft.AspNetCore.Components.Forms
+@using BlazorInputFile
+@using DAL
+@using Entities
+@attribute [Authorize(Roles = "Company")]
 @inject NavigationManager NavigationManager
-
-<HeadContent>
-    <!-- Add any necessary CSS or head content -->
-</HeadContent>
+@inject JobApplicationDAL JobApplicationDAL
 
 <div class="container">
     <h3 class="mt-4 mb-3 text-center">Apply for Job</h3>
     <form>
         <div class="mb-3">
-            <label for="name" class="form-label">Full Name</label>
-            <input type="text" class="form-control" id="name" @bind="fullName" />
+            <label for="fullName" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="fullName" @bind="jobApplication.FullName" />
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" @bind="email" />
+            <input type="email" class="form-control" id="email" @bind="jobApplication.Email" />
         </div>
         <div class="mb-3">
             <label for="contactNumber" class="form-label">Contact Number</label>
-            <input type="text" class="form-control" id="contactNumber" @bind="contactNumber" />
+            <input type="text" class="form-control" id="contactNumber" @bind="jobApplication.ContactNumber" />
         </div>
-        @* <div class="mb-3">
-            <label for="cv" class="form-label">Upload CV (PDF)</label>
-            <input type="file" class="form-control" id="cv" @onchange="HandleFileUpload" accept=".pdf" />
-        </div> *@
+        <label for="cvInput" class="form-label">CV:</label>
+        <div class="form-group">
+            <label for="fileInput" class="form-label">Select Image!:</label>
+            <div class="input-group">
+                <div class="custom-file">
+                    <Microsoft.AspNetCore.Components.Forms.InputFile type="file" id="fileInput" accept="image/*" OnChange="HandleFileChange" class="custom-file-input" aria-describedby="inputGroupFileAddon" />
+                    <label class="custom-file-label" for="fileInput">Choose file</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <img class="writeImg" src="@($"data:image/png;base64,{base64String}")" alt="" />
+        </div>
         <div class="text-center">
             <button class="btn btn-primary" @onclick="SubmitApplication">Submit Application</button>
         </div>
@@ -31,29 +42,52 @@
 </div>
 
 @code {
-    private string fullName;
-    private string email;
-    private string contactNumber;
-    private byte[] cvFileContent;
+    private JobApplication jobApplication = new JobApplication();
+    private string base64String; // Variable to store CV file in base64 format
 
     [Parameter]
     public int JobId { get; set; }
 
-    private void HandleFileUpload(InputFileChangeEventArgs e)
+    private async Task HandleFileChange(InputFileChangeEventArgs e)
     {
         var file = e.File;
-        var buffer = new byte[file.Size];
-        file.OpenReadStream().Read(buffer);
-        cvFileContent = buffer;
+
+        if (file != null)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                await file.OpenReadStream().CopyToAsync(memoryStream);
+                base64String = Convert.ToBase64String(memoryStream.ToArray());
+                jobApplication.CVFile = base64String; // Assign base64 string to job's CVFile property
+            }
+        }
     }
 
-    private void SubmitApplication()
+    private async Task SubmitApplication()
     {
-        // Handle logic for submitting the application
-        // You can use the captured data (fullName, email, contactNumber, cvFileContent) here
-        // For example, send the application details to the server or save in the database
+        if (!string.IsNullOrWhiteSpace(jobApplication.FullName) &&
+            !string.IsNullOrWhiteSpace(jobApplication.Email) &&
+            !string.IsNullOrWhiteSpace(jobApplication.ContactNumber) &&
+            !string.IsNullOrWhiteSpace(jobApplication.CVFile)) // Checking CV file content
+        {
+            // Ensure other fields are filled as needed
 
-        // Redirect to a confirmation page or any other appropriate action after submission
-        NavigationManager.NavigateTo("/confirmation");
+            // Ensure that the flow reaches this point
+            Console.WriteLine("Before submitting application to DAL");
+
+            // Call DAL method to save job application
+            JobApplicationDAL.SubmitJobApplication(jobApplication);
+
+            Console.WriteLine("After submitting application to DAL");
+
+            // Navigate to confirmation page with query parameters
+            NavigationManager.NavigateTo("/confirmation?JobId=" + jobApplication.JobId.ToString());
+        }
+        else
+        {
+            // Handle validation or display an error message
+        }
     }
 }
+}
+

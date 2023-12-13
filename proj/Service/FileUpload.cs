@@ -11,13 +11,12 @@ namespace proj.Service
             _environment = environment;
         }
 
+        // Inside the FileUpload service
         public async Task UploadAsync(IFileListEntry fileEntry, EntJobs job)
         {
             try
             {
                 var path = Path.Combine(_environment.ContentRootPath, "wwwroot", fileEntry.Name);
-
-                // Log the file path for debugging
                 Console.WriteLine($"File path: {path}");
 
                 var ms = new MemoryStream();
@@ -28,18 +27,16 @@ namespace proj.Service
                     ms.WriteTo(file);
                 }
 
-                // Save the file name to the Thumbnail property of the provided EntPosts instance
                 job.Thumbnail = fileEntry.Name;
-
-                // Log successful file upload
                 Console.WriteLine($"File '{fileEntry.Name}' uploaded successfully. Thumbnail saved to EntJobs instance.");
             }
             catch (Exception ex)
             {
-                // Log any exceptions during file upload
                 Console.WriteLine($"Error uploading file: {ex.Message}");
+                throw; // Re-throw the exception to capture it in the calling code
             }
         }
+
 
     }
 }

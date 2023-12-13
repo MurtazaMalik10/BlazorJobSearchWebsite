@@ -1,0 +1,48 @@
+﻿@page "/confirmation/{JobId:int}"
+@using DAL
+@using Entities
+
+@inject NavigationManager NavigationManager
+@inject JobApplicationDAL JobApplicationDAL
+
+<div class="container">
+    <h3 class="mt-4 mb-3 text-center">Confirmation</h3>
+
+    @if (jobApplication != null && jobApplication.JobId != 0)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Job Application Details</h5>
+                <p class="card-text">Job ID: @jobApplication.JobId</p>
+                <p class="card-text">Full Name: @jobApplication.FullName</p>
+                <p class="card-text">Email: @jobApplication.Email</p>
+                <p class="card-text">Contact Number: @jobApplication.ContactNumber</p>
+                <!-- Display other job application details as needed -->
+            </div>
+        </div>
+    }
+    else
+    {
+        <p>No job application details found.</p>
+    }
+</div>
+<style>
+    .thumbnail-img {
+        max-width: 100px;
+        max-height: 100px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+</style>
+@code {
+    private int JobId;
+    private JobApplication jobApplication = new JobApplication();
+
+    protected override void OnInitialized()
+    {
+        JobId = JobId; // Get the JobId from the route parameter
+
+        // Fetch and display job application details using JobApplicationDAL
+        jobApplication = JobApplicationDAL.GetJobApplication(JobId);
+    }
+}

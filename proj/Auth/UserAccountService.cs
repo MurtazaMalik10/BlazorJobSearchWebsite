@@ -6,16 +6,15 @@ namespace proj.Auth
 {
     public class UserAccountService
     {
-        private List<EntCompany> companies = new List<EntCompany>();
+        //private List<EntCompany> company = new List<EntCompany>();
 
-        public UserAccountService()
-        {
-            companies = DALCompany.GetCompanyUsingLinq();
-        }
+        //public UserAccountService()
+        //{
+        //    company = DALCompany.ShowCompany();
+        //}
         public EntCompany? GetByUserName(EntCompany _ec)
         {
-            return DALCompany.ShowCompany(_ec.Email, _ec.Password);
+            return DALCompany.ShowCompany(_ec.Email, _ec.Password); //editors.FirstOrDefault(e => e.Email == email);
         }
-
     }
 }

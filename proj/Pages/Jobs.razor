@@ -3,8 +3,9 @@
 @inject IFileUpload fileUpload
 @inject IWebHostEnvironment env
 @inject AuthenticationStateProvider customAuthenticationStateProvider
+@using BlazorInputFile
 
-
+@attribute [Authorize(Roles = "Company")]
 @using Entities
 @using DAL
 @using proj.Service
@@ -32,16 +33,16 @@
                         <input type="text" id="categoryId" class="form-control" @bind="newJob.CatId" />
                     </div>
                     <div class="form-group">
-                        <label for="thumbnail">Thumbnail</label>
-                        <BlazorInputFile.InputFile OnChange="HandleFileSelected" id="thumbnail" class="form-control" />
-            
-                    @if (file != null)
-                    {
-                        <p>Name: @file.Name</p>
-                        <p>Type: @file.Type</p>
-                        <p>Size: @file.Size</p>
-                        <!-- Display the selected file information -->
-                    }
+                        <label for="fileInput" class="form-label">Thumbnail:</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <Microsoft.AspNetCore.Components.Forms.InputFile type="file" id="fileInput" accept="image/*" OnChange="HandleFileChange" class="custom-file-input" aria-describedby="inputGroupFileAddon" />
+                                <label class="custom-file-label" for="fileInput">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <img class="writeImg" src="@($"data:image/png;base64,{base64String}")" alt="" />
                     </div>
                     <div class="form-check">
                         <input type="checkbox" id="isActive" class="form-check-input" @bind="newJob.IsActive" />
@@ -87,12 +88,28 @@
         if (file != null)
         {
             // Save the file to the server
-            fileUpload.UploadAsync(file, newJob);
+            await fileUpload.UploadAsync(file, newJob);
 
             // Save the file information to the Thumbnail attribute
             newJob.Thumbnail = file.Name; // You can modify this based on your database schema
 
             StateHasChanged(); // Ensure that the component is re-rendered to display the file information
+        }
+    }
+    private string base64String;
+
+    private async Task HandleFileChange(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+
+        if (file != null)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                await file.OpenReadStream().CopyToAsync(memoryStream);
+                base64String = Convert.ToBase64String(memoryStream.ToArray());
+                newJob.Thumbnail = base64String; // Assign base64 string to job's Thumbnail property
+            }
         }
     }
 }

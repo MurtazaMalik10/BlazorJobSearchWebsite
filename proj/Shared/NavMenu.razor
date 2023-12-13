@@ -12,61 +12,60 @@
 
         <!-- Navbar Items -->
         <div class="@NavMenuCssClass" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
-                <!-- Previous components on the left -->
-                <div>
-                <li class="nav-item">
-                    <NavLink class="nav-link text-light" href="" Match="NavLinkMatch.All">
+            <ul class="navbar-nav ml-auto">
+                <!-- Main Navigation Links -->
+                <div><li class="nav-item">
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                         <span class="oi oi-home" aria-hidden="true"></span> Home
                     </NavLink>
                 </li>
                 </div>
                 <div>
                 <li class="nav-item">
-                    <NavLink class="nav-link text-light" href="company/profile">
-                        <span class="oi oi-list-rich" aria-hidden="true"></span> Create Company Profile
+                    <NavLink class="nav-link" href="company/profile">
+                        Create Company Profile
                     </NavLink>
                 </li>
                 </div>
                 <div>
                 <li class="nav-item">
-                    <NavLink class="nav-link text-light" href="companylist">
-                        <span class="oi oi-list-rich" aria-hidden="true"></span> Registered Companies
+                    <NavLink class="nav-link" href="companylist">
+                        Registered Companies
                     </NavLink>
                 </li>
                 </div>
                 <div>
                 <li class="nav-item">
-                    <NavLink class="nav-link text-light" href="jobs">
-                        <span class="oi oi-list-rich" aria-hidden="true"></span> Create Job
+                    <NavLink class="nav-link" href="jobs">
+                        Create Job
                     </NavLink>
                 </li>
                 </div>
                 <div>
                 <li class="nav-item">
-                    <NavLink class="nav-link text-light" href="joblistings">
-                        <span class="oi oi-list-rich" aria-hidden="true"></span> View Jobs
+                    <NavLink class="nav-link" href="joblistings">
+                        View Jobs
                     </NavLink>
                 </li>
                 </div>
                 <div>
                 <li class="nav-item">
-                    <NavLink class="nav-link text-light" href="categories">
-                        <span class="oi oi-list-rich" aria-hidden="true"></span> Categories
+                    <NavLink class="nav-link" href="categories">
+                        Categories
                     </NavLink>
                 </li>
                 </div>
-                <!-- Login and Register components on the right -->
+                <!-- User Authentication Links -->
                 <div>
-                <li class="nav-item">
-                    <NavLink class="nav-link text-light" href="login">
+                    <li class="nav-item">
+                    <NavLink class="nav-link" href="login">
                         Login
                     </NavLink>
                 </li>
                 </div>
                 <div>
                 <li class="nav-item">
-                    <NavLink class="nav-link text-light" href="register">
+                    <NavLink class="nav-link" href="register">
                         Register
                     </NavLink>
                 </li>
@@ -79,128 +78,10 @@
 @code {
     private bool collapseNavMenu = true;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : "";
+    private string NavMenuCssClass => collapseNavMenu ? "collapse navbar-collapse justify-content-end" : "";
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
 }
-<style>
-    /* Navbar style adjustments */
-    .navbar {
-        padding: 0.5rem 2rem; /* Reduced top and bottom padding */
-        background-color: #333; /* Darker background color */
-        border: none;
-        border-radius: 0;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle box-shadow */
-        background: linear-gradient(45deg, #555, #444, #333, #222, #111, #000);
-        display: flex;
-        align-items: baseline; /* Align items vertically in the navbar */
-        justify-content: space-between; /* Distribute items evenly */
-    }
-
-    /* Navbar links adjustments */
-    .navbar-nav .nav-link {
-        padding: 0.5rem 1rem; /* Adjusted padding */
-        font-size: 14px; /* Decreased font size */
-        white-space: nowrap; /* Prevent text wrap */
-        overflow: hidden;
-        text-overflow: ellipsis; /* Show ellipsis (...) for truncated text */
-    }
-
-    /* Adjusted font size for NavBar brand */
-    .navbar-brand {
-        font-size: 2.2rem; /* Decreased brand font size */
-        font-weight: bold;
-        color: #ccc; /* Brand color */
-    }
-    }
-
-        .navbar-nav .nav-link::before {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: #ffc107; /* Underline color */
-            transform: scaleX(0);
-            transition: transform 0.3s ease-in-out;
-            transform-origin: center;
-        }
-
-        .navbar-nav .nav-link:hover::before {
-            transform: scaleX(1);
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: #ffc107;
-            transform: translateY(-3px);
-        }
-
-    /* Active link style */
-    .nav-link.active {
-        color: #ffc107 !important;
-    }
-
-    /* Animated border bottom */
-    .navbar::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        background-color: #ffc107;
-        transition: width 0.5s ease; /* Transition for the underline */
-    }
-
-    /* Animated border bottom on hover */
-    .navbar:hover::after {
-        width: 100%;
-    }
-
-    .navbar-nav {
-        display: flex;
-        align-items: center;
-    }
-
-
-    .dropdown-menu {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        z-index: 1000;
-        display: none;
-        float: left;
-        min-width: 10rem;
-        padding: 0.5rem 0;
-        margin: 0.125rem 0 0;
-        font-size: 1rem;
-        color: #212529;
-        text-align: left;
-        list-style: none;
-        background-color: #fff;
-        background-clip: padding-box;
-        border: 1px solid rgba(0,0,0,0.15);
-        border-radius: 0.25rem;
-    }
-
-        .dropdown-menu.show {
-            display: block;
-        }
-
-    .logo img {
-        transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
-    }
-
-        .logo img:hover {
-            transform: scale(1.1); /* Increase size on hover */
-            filter: brightness(1.2); /* Adjust brightness on hover */
-        }
-
-    .navbar {
-        overflow-x: auto; /* Or use white-space: nowrap; */
-    }
-</style>

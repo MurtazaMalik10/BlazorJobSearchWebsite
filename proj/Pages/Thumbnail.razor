@@ -1,0 +1,27 @@
+﻿@page "/abc"
+<h3>abc</h3>
+<label for="fileInput">
+    <i class="writeIcon fas fa-plus">abc</i>
+</label>
+<div class="form-group">
+<Microsoft.AspNetCore.Components.Forms.InputFile type="file" id="fileInput" accept="image/*" style="display:none" OnChange="HandleFileChange" />
+</div>
+<img class="writeImg" src="@($"data:image/png;base64,{base64String}")" alt="" />
+@code {
+    private string base64String;
+
+    private async Task HandleFileChange(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+
+        if (file != null)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                await file.OpenReadStream().CopyToAsync(memoryStream);
+                base64String = Convert.ToBase64String(memoryStream.ToArray());
+            }
+        }
+        Console.WriteLine(base64String);
+    }
+}

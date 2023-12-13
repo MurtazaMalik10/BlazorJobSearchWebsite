@@ -1,3 +1,4 @@
+using DAL;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
@@ -16,6 +17,7 @@ builder.Services.AddScoped<ProtectedSessionStorage>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 builder.Services.AddSingleton<UserAccountService>();
 builder.Services.AddScoped<IFileUpload, FileUpload>();
+builder.Services.AddScoped<JobApplicationDAL>(); // Assuming JobApplicationDAL is registered as a scoped service
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
