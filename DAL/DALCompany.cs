@@ -131,6 +131,14 @@ namespace DAL
 
             return filteredCompanies;
         }
+        public static List<EntCompany> GetUserUsingLinq()
+        {
+            List<EntCompany> companies = GetCompanies();
+
+            var filteredUsers = companies.Where(u => u.Roles == "User").ToList();
+
+            return filteredUsers;
+        }
         public static EntCompany CompanyLogin(string email, string password)
         {
             EntCompany company = new EntCompany();

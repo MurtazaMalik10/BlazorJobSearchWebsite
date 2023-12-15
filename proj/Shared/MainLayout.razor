@@ -1,26 +1,35 @@
-﻿<!-- MainLayout.razor -->
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
+@inject IJSRuntime JsRuntime
 
-<PageTitle>Job Portal</PageTitle>
-
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <NavMenu />
+<CascadingAuthenticationState>
+    <PageTitle>Job Portal</PageTitle>
+    <HeadContent>
+        <link href="navbar.css" rel="stylesheet" />
+    </HeadContent>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+@*                 <img src="/JobPortalLogo.png" alt="Logo" class="profile-photo small-profile-photo" />
+                <a class="navbar-brand" href="#">Job Portal</a> *@
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <NavMenu />
+                </div>
             </div>
-        </div>
-    </nav>
-</header>
+        </nav>
+    </header>
 
-<div class="page">
-    <main>
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+    <div class="page">
+        <main>
+            <article class="content px-4">
+                @Body
+            </article>
+        </main>
+    </div>
+</CascadingAuthenticationState>
+
+@code {
+    // Additional code if needed
+}

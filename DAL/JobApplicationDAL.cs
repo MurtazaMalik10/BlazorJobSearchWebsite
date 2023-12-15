@@ -16,11 +16,13 @@ namespace DAL
                 con.Open();
                 SqlCommand cmd = new SqlCommand("SP_SubmitJobApplication", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@JobId", jobApplication.JobId);
+
+                cmd.Parameters.AddWithValue("@JobId", jobApplication.JobId); // Include the JobId parameter
                 cmd.Parameters.AddWithValue("@FullName", jobApplication.FullName);
                 cmd.Parameters.AddWithValue("@Email", jobApplication.Email);
                 cmd.Parameters.AddWithValue("@ContactNumber", jobApplication.ContactNumber);
                 cmd.Parameters.AddWithValue("@CVFile", jobApplication.CVFile);
+
                 cmd.ExecuteNonQuery();
             }
         }

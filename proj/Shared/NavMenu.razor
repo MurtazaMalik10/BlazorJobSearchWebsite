@@ -1,87 +1,91 @@
-﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <!-- Logo -->
-        <a class="navbar-brand logo" href="#">
-            <img src="JobPortalLogo.png" alt="Job Portal" height="100">
-        </a>
+﻿@using Microsoft.Extensions.Configuration
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.JSInterop
 
-        <!-- Toggle Button -->
-        <button class="navbar-toggler" type="button" @onclick="ToggleNavMenu">
+
+@inject IConfiguration Configuration
+@inject NavigationManager nm
+@inject AuthenticationStateProvider authStateProvider
+@inject IJSRuntime js
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="/JobPortalLogo.png" alt="Logo" class="profile-photo small-profile-photo me-2" /> Job Portal
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <div>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="/" style="color: white;">Home</NavLink>
+                </li>
+                </div>
+                <div>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="/companylist" style="color: white;">Registered Companies</NavLink>
+                </li>
+                </div>
+                <div>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="/userlist" style="color: white;">Registered Users</NavLink>
+                </li>
+                </div>
+                <div>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="/jobs" style="color: white;">Create Job</NavLink>
+                </li>
+                </div>
 
-        <!-- Navbar Items -->
-        <div class="@NavMenuCssClass" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <!-- Main Navigation Links -->
-                <div><li class="nav-item">
-                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Home
-                    </NavLink>
-                </li>
-                </div>
-                <div>
-                <li class="nav-item">
-                    <NavLink class="nav-link" href="company/profile">
-                        Create Company Profile
-                    </NavLink>
-                </li>
-                </div>
-                <div>
-                <li class="nav-item">
-                    <NavLink class="nav-link" href="companylist">
-                        Registered Companies
-                    </NavLink>
-                </li>
-                </div>
-                <div>
-                <li class="nav-item">
-                    <NavLink class="nav-link" href="jobs">
-                        Create Job
-                    </NavLink>
-                </li>
-                </div>
-                <div>
-                <li class="nav-item">
-                    <NavLink class="nav-link" href="joblistings">
-                        View Jobs
-                    </NavLink>
-                </li>
-                </div>
-                <div>
-                <li class="nav-item">
-                    <NavLink class="nav-link" href="categories">
-                        Categories
-                    </NavLink>
-                </li>
-                </div>
-                <!-- User Authentication Links -->
-                <div>
-                    <li class="nav-item">
-                    <NavLink class="nav-link" href="login">
-                        Login
-                    </NavLink>
-                </li>
-                </div>
-                <div>
-                <li class="nav-item">
-                    <NavLink class="nav-link" href="register">
-                        Register
-                    </NavLink>
-                </li>
-                </div>
+                <AuthorizeView Roles="Company">
+                    <Authorized>
+                        <!-- Links for Company and Admin roles -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/jobs">Create Job</a>
+                        </li>
+                        <!-- Add other links based on roles -->
+                    </Authorized>
+@*                     <NotAuthorized>
+                        <!-- Links for unauthenticated users -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="loginuser">Job Seeker</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logincompany">Company</a>
+                        </li>
+                    </NotAuthorized> *@
+                </AuthorizeView>
             </ul>
+            <div class="d-flex">
+                <AuthorizeView Roles="Editor,User,Admin">
+                    <Authorized>
+                        <!-- Display a logout button if the user is logged in -->
+                        <a class="btn btn-danger me-2" @onclick="Logout">Logout</a>
+                    </Authorized>
+                    <NotAuthorized>
+                        <!-- Display login buttons for unauthenticated users -->
+                        <a class="btn btn-success me-2" href="loginuser">Job Seeker</a>
+                        <a class="btn btn-success me-2" href="logincompany">Company</a>
+                    </NotAuthorized>
+                </AuthorizeView>
+            </div>
         </div>
     </div>
 </nav>
+<style>
 
-@code {
-    private bool collapseNavMenu = true;
-
-    private string NavMenuCssClass => collapseNavMenu ? "collapse navbar-collapse justify-content-end" : "";
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
+    .small-profile-photo {
+        width: 140px; /* Adjust the width as needed */
+        height: 70px; /* Maintain aspect ratio */
     }
+</style>
+@code {
+    private async Task Logout()
+    {
+        // var customAuthStateProvider = (CustomAuthenticationState)authStateProvider;
+        // await customAuthStateProvider.UpdateAuthenticationState(null);
+        nm.NavigateTo("/", true);
+    }
+
 }

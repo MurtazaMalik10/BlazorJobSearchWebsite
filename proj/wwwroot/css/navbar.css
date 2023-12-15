@@ -1,0 +1,39 @@
+﻿/* navbar.css */
+
+.navbar {
+    background-color: #0066b2;
+}
+
+.navbar-brand {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.nav-link {
+    color: white !important;
+    transition: color 0.3s ease;
+}
+
+    .nav-link:hover {
+        color: #ffc107 !important;
+    }
+
+.btn {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.btn-success {
+    background-color: #28a745;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.small-profile-photo {
+    width: 40px; /* Adjust the width as needed */
+    height: 40px; /* Maintain aspect ratio */
+}

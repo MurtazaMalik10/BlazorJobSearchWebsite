@@ -1,0 +1,78 @@
+﻿@page "/loginuser"
+@using proj.Auth
+@using Microsoft.Extensions.Configuration
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.JSInterop
+@using Entities
+@using DAL
+
+@inject IConfiguration Configuration
+@inject NavigationManager nm
+@inject UserAccountService userAccountService
+@inject AuthenticationStateProvider authStateProvider
+@inject IJSRuntime js
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title text-center text-white">Login</h3>
+                    <p class="text-center">Login with your User Credentials</p>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-danger" role="alert" style="display: @errorMessageDisplay">@errorMessage</div>
+
+                    <EditForm Model="company">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="Email" @bind="company.Email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="Password" @bind="company.Password" required>
+                        </div>
+                        <div class="text-center">
+                            <button @onclick="Authenticate" class="btn btn-primary">Login</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="text-center">
+                <p>Don't have an account? <a href="/registeruser">Register</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private EntCompany company = new EntCompany();
+    private string errorMessage;
+    private string errorMessageDisplay = "none";
+
+    private async Task Authenticate()
+    {
+        var userAccount = userAccountService.GetByUserName(company);
+
+        if (userAccount.FirstName == null || userAccount.Roles == null)
+        {
+            await js.InvokeVoidAsync("alert", "Invalid Credentials");
+            return;
+        }
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+        await customAuthStateProvider.UpdateAuthenticationState(new UserSession
+            {
+                FirstName = userAccount.FirstName,
+                Roles = userAccount.Roles
+            });
+
+        nm.NavigateTo("/");
+    }
+}

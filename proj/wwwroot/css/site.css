@@ -6,6 +6,7 @@
 }
 
 body {
+    /* Adjust font-family, font-size, line-height, etc. */
     font-family: Arial, sans-serif;
     font-size: 16px;
     line-height: 1.6;
@@ -14,13 +15,24 @@ body {
     overflow-x: hidden;
 }
 
-/* Title */
+/* Define variables for colors */
+:root {
+    --primary-color: #0066b2;
+    --secondary-color: #ffc107;
+    --text-color: #333;
+    --text-color-light: #666;
+    --background-color: #fff;
+    /* Define other colors as needed */
+}
+
+/* Title styles */
 .title {
     font-size: 28px;
     font-weight: bold;
-    color: #333;
+    color: var(--text-color);
     margin-bottom: 20px;
 }
+
 
 /* Card styles */
 .card {
@@ -51,8 +63,8 @@ body {
     color: #666;
 }
 
-/* Navbar */
-.navbar {
+/* Navbar styles */
+/*.navbar {
     padding: 12px 20px;
     background-color: #222;
     color: #fff;
@@ -60,32 +72,36 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
+}*/
 
-.navbar-brand {
+/* Navbar Brand styles */
+/*.navbar-brand {
     font-size: 24px;
     font-weight: bold;
     color: #ffc107;
     text-transform: uppercase;
     text-decoration: none;
-}
+}*/
 
-.navbar-nav .nav-link {
+/* Navbar Links styles */
+/*.navbar-nav .nav-link {
     padding: 10px 15px;
     font-size: 14px;
     color: #fff;
     text-decoration: none;
     transition: color 0.3s ease;
-}
+}*/
 
-    .navbar-nav .nav-link:hover {
+    /* Navbar Links Hover styles */
+    /*.navbar-nav .nav-link:hover {
         color: #ffc107;
-    }
+    }*/
+
 
 /* Footer */
 .footer {
-    background-color: #222;
-    color: #fff;
+    background-color: var(--primary-color);
+    color: var(--background-color);
     text-align: center;
     padding: 20px 0;
 }
@@ -95,7 +111,7 @@ body {
     }
 
 /* Media Queries */
-@media (max-width: 768px) {
+/*@media (max-width: 768px) {
     .navbar {
         flex-direction: column;
         align-items: flex-start;
@@ -105,3 +121,4 @@ body {
         margin-top: 10px;
     }
 }
+*/

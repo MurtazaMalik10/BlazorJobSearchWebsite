@@ -5,6 +5,7 @@ namespace proj.Service
 {
     public interface IFileUpload
     {
-        Task UploadAsync(IFileListEntry file, EntJobs job);
+        Task UploadAsync(IFileListEntry file, JobApplication job);
+       
     }
 }

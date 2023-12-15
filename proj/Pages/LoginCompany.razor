@@ -1,4 +1,4 @@
-﻿@page "/login"
+﻿@page "/logincompany"
 @using proj.Auth
 @using Microsoft.Extensions.Configuration
 @using Microsoft.AspNetCore.Components.Authorization
@@ -17,13 +17,13 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header bg-primary text-white">
-                    <h3 class="card-title">Login</h3>
+                    <h3 class="card-title text-center text-white">Company Login</h3>
+                    <p class="text-center">Login with your Company Credentials</p>
                 </div>
                 <div class="card-body">
                     <div class="alert alert-danger" role="alert" style="display: @errorMessageDisplay">@errorMessage</div>
 
                     <EditForm Model="company">
-
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="Email" @bind="company.Email" required>
@@ -32,19 +32,21 @@
                             <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control" id="Password" @bind="company.Password" required>
                         </div>
-                        <button @onclick="Authenticate" class="btn btn-primary">Login </button>
-
+                        <div class="text-center">
+                            <button @onclick="Authenticate" class="btn btn-primary">Login</button>
+                        </div>
                     </EditForm>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <div class="container mt-3">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="text-center">
-                <p>Don't have an account? <a href="/register">Register</a></p>
+                <p>Don't have an account? <a href="/registercompany">Register</a></p>
             </div>
         </div>
     </div>
@@ -70,7 +72,6 @@
                 FirstName = userAccount.FirstName,
                 Roles = userAccount.Roles
             });
-
 
         nm.NavigateTo("/");
     }

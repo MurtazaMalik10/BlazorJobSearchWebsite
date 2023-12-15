@@ -81,21 +81,21 @@
     IFileListEntry file;
     BlazorInputFile.InputFile thumbnailFile;
 
-    async Task HandleFileSelected(IFileListEntry[] files)
-    {
-        file = files.FirstOrDefault();
+    // async Task HandleFileSelected(IFileListEntry[] files)
+    // {
+    //     file = files.FirstOrDefault();
 
-        if (file != null)
-        {
-            // Save the file to the server
-            await fileUpload.UploadAsync(file, newJob);
+    //     if (file != null)
+    //     {
+    //         // Save the file to the server
+    //         await fileUpload.UploadAsync(file, newJob);
 
-            // Save the file information to the Thumbnail attribute
-            newJob.Thumbnail = file.Name; // You can modify this based on your database schema
+    //         // Save the file information to the Thumbnail attribute
+    //         newJob.Thumbnail = file.Name; // You can modify this based on your database schema
 
-            StateHasChanged(); // Ensure that the component is re-rendered to display the file information
-        }
-    }
+    //         StateHasChanged(); // Ensure that the component is re-rendered to display the file information
+    //     }
+    // }
     private string base64String;
 
     private async Task HandleFileChange(InputFileChangeEventArgs e)

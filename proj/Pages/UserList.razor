@@ -1,0 +1,67 @@
+﻿@page "/userlist"
+@using Entities
+@using DAL
+
+<h3 class="text-center mb-4">Saved Companies</h3>
+
+@if (companies != null && companies.Any())
+{
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">User ID</th>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Email</th>
+                                <!-- Add more columns as needed -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (var i = 0; i < companies.Count; i++)
+                            {
+                                <tr>
+                                    <td>@(i + 1)</td>
+                                    <td>@companies[i].CompanyID</td>
+                                    <td>@companies[i].FirstName</td>
+                                    <td>@companies[i].LastName</td>
+                                    <td>@companies[i].Email</td>
+                                    <!-- Display other company details -->
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center mt-5">
+                <p class="lead">No companies found.</p>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private List<EntCompany> companies { get; set; } = new List<EntCompany>();
+
+    protected override void OnInitialized()
+    {
+        FetchUsersUsingLinq();
+    }
+
+    private void FetchUsersUsingLinq()
+    {
+        companies = DALCompany.GetUserUsingLinq();
+    }
+
+}
