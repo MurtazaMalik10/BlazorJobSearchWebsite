@@ -3,63 +3,82 @@
 @using DAL
 @inject NavigationManager NavigationManager
 
-<HeadContent>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        /* Custom Styles */
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
-            margin-top: 20px;
-        }
+<style>
+    /* Custom styles for View Job page */
+    .job-details-container {
+        margin-top: 50px;
+    }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
+    .job-details {
+        font-family: 'Arial', sans-serif;
+        color: #333;
+    }
 
-        .card {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        .job-details h3 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #0066b2;
             margin-bottom: 20px;
         }
 
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 500;
-            margin-bottom: 10px;
+        .job-details p {
+            font-size: 1.2rem; /* Increased text size */
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
 
-        .card-text {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
+    .thumbnail-column {
+        text-align: center;
+    }
+
+        .thumbnail-column img {
+            max-width: 800px;
+            height: 700px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
 
-        .btn-primary {
-            display: block;
-            margin: 0 auto;
+            .thumbnail-column img:hover {
+                transform: scale(1.05);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            }
+
+    /* Custom button style */
+    .custom-button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+        .custom-button:hover {
+            background-color: #0056b3;
         }
-    </style>
-</HeadContent>
+</style>
 
-<h3 class="mt-4 mb-3 text-center">View Job Details</h3>
-
-<div class="container">
+<div class="container job-details-container">
     @if (job != null)
     {
-        <div class="card mb-4">
-            <div class="card-body">
-                <h5 class="card-title">Job Title: @job.JobTitle</h5>
-                <p class="card-text">Job ID: @job.JobId</p>
-                <p class="card-text">Company ID: @job.CompanyID</p>
-                <hr>
-                <p class="card-text">Description:</p>
-                <p class="card-text">@job.Description</p>
-                <!-- Additional job details here -->
-                <!-- Apply Now Button -->
-                <button class="btn btn-primary" @onclick="ApplyNow">Apply Now</button>
+        <div class="row">
+            <div class="col-md-6 job-details">
+                <h3>Job Title: @job.JobTitle</h3>
+                <h3 class="text-success font-weight-bold">Description:</h3> <!-- Updated description heading -->
+                <p>@job.Description</p>
+                <p class="text-muted">@CalculateTimeAgo(job.TimeUploaded)</p>
+                <!-- Apply Now Button with custom style -->
+                <button class="custom-button" @onclick="ApplyNow">Apply Now</button>
+            </div>
+            <div class="col-md-6 thumbnail-column">
+                @if (!string.IsNullOrEmpty(job.Thumbnail))
+                {
+                    <img src="@($"data:image/png;base64,{job.Thumbnail}")" alt="Thumbnail" class="img-fluid rounded">
+                }
             </div>
         </div>
     }
@@ -68,7 +87,6 @@
         <p>No job details found.</p>
     }
 </div>
-
 @code {
     EntJobs job;
 
@@ -87,6 +105,35 @@
         // For example, redirect to an application form or process
         // Here's a simple navigation to a hypothetical application page:
         NavigationManager.NavigateTo($"/apply/{JobId}");
+    }
 
+    string CalculateTimeAgo(DateTime? timeUploaded)
+    {
+        if (timeUploaded.HasValue)
+        {
+            DateTime uploadTime = timeUploaded.Value;
+            TimeSpan timeDifference = DateTime.Now - uploadTime;
+
+            if (timeDifference.TotalSeconds < 60)
+            {
+                return "Posted just now";
+            }
+            else if (timeDifference.TotalMinutes < 60)
+            {
+                return $"Posted {(int)timeDifference.TotalMinutes} minute{(timeDifference.TotalMinutes != 1 ? "s" : "")} ago";
+            }
+            else if (timeDifference.TotalHours < 24)
+            {
+                return $"Posted {(int)timeDifference.TotalHours} hour{(timeDifference.TotalHours != 1 ? "s" : "")} ago";
+            }
+            else
+            {
+                return $"Posted {(int)timeDifference.TotalDays} day{(timeDifference.TotalDays != 1 ? "s" : "")} ago";
+            }
+        }
+        else
+        {
+            return "Unknown posting time";
+        }
     }
 }

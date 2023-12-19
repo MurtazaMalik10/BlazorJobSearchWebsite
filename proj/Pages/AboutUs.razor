@@ -1,0 +1,60 @@
+﻿@page "/aboutus"
+<style>
+    /* Custom styles for About Us page */
+    .about-container {
+        margin-top: 50px;
+    }
+
+    .about-content {
+        font-family: 'Arial', sans-serif;
+        color: #333;
+    }
+
+        .about-content h3 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #0066b2;
+            margin-bottom: 20px;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+    .about-image {
+        text-align: center;
+    }
+
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+            .about-image img:hover {
+                transform: scale(1.05);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            }
+</style>
+
+<div class="container about-container">
+    <div class="row">
+        <div class="col-md-6 about-content">
+            <h3>About Our Company</h3>
+            <p>
+                <h3 class="text-success">Welcome to National Job Portal Pakistan!</h3>
+                We are dedicated to providing high-quality services and products to our customers. Our journey began with a vision to revolutionize the industry by delivering innovative solutions.
+            </p>
+            <p>
+                Our team consists of passionate professionals committed to excellence. We strive to exceed expectations and build long-lasting relationships with our clients.
+            </p>
+        </div>
+        <div class="col-md-6 about-image">
+            <img src="/Logo.png" alt="Company Image" class="img-fluid rounded">
+        </div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 ﻿namespace Entities
 {
-    public class JobApplication
+    public class EntJobApplication
     {
         public int JobId { get; set; }
         public string? FullName { get; set; }

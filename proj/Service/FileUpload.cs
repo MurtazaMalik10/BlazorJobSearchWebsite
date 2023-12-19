@@ -17,7 +17,7 @@ namespace proj.Service
         }
 
         // Inside the FileUpload service
-        public async Task UploadAsync(IFileListEntry fileEntry, JobApplication job)
+        public async Task UploadAsync(IFileListEntry fileEntry, EntJobApplication job)
         {
             try
             {

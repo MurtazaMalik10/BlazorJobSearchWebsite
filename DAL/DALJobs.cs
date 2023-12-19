@@ -15,9 +15,7 @@ namespace DAL
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 // Make sure the parameter names and types match the stored procedure parameters
-                cmd.Parameters.AddWithValue("@companyId", jobs.CompanyID);
                 cmd.Parameters.AddWithValue("@title", jobs.JobTitle);
-                cmd.Parameters.AddWithValue("@catId", jobs.CatId);
                 cmd.Parameters.AddWithValue("@description", jobs.Description);
                 cmd.Parameters.AddWithValue("@thumbnail", jobs.Thumbnail); // Ensure this matches the expected type and size in the database
                 cmd.Parameters.AddWithValue("@isactive", jobs.IsActive);
@@ -37,7 +35,6 @@ namespace DAL
             SqlConnection con = DBHelper.GetConnection();
             con.Open();
             SqlCommand cmd = new SqlCommand("SP_ShowCompanyJob", con);
-            cmd.Parameters.Add("@companyId", SqlDbType.NVarChar).Value = loggedInCompanyID; // Use the correct parameter name
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataReader reader = cmd.ExecuteReader();
 
@@ -46,8 +43,6 @@ namespace DAL
                 EntJobs ej = new EntJobs();
 
                 ej.JobTitle = reader["JobTitle"].ToString();
-                ej.CompanyID = reader["companyID"].ToString();
-                ej.CatName = reader["CategoryName"].ToString();
                 jobList.Add(ej);
             }
 
@@ -72,7 +67,6 @@ namespace DAL
 
                 ej.JobId = Convert.ToInt32(reader["JobId"]);
                 ej.JobTitle = reader["JobTitle"].ToString();
-                ej.CatId = (int?)Convert.ToDecimal(reader["CatId"]);
                 ej.Description = reader["Description"].ToString();
                 ej.Thumbnail = reader["Thumbnail"].ToString();
 
@@ -102,10 +96,10 @@ namespace DAL
                             job = new EntJobs
                             {
                                 JobId = Convert.ToInt32(reader["JobId"]),
-                                CompanyID = reader["CompanyID"].ToString(),
                                 JobTitle = reader["JobTitle"].ToString(),
                                 Description = reader["Description"].ToString(),
                                 Thumbnail = reader["Thumbnail"].ToString(),
+                                TimeUploaded = Convert.ToDateTime(reader["TimeUploaded"]) // Retrieve and set TimeUploaded
                             };
                         }
                     }
@@ -138,8 +132,8 @@ namespace DAL
             using (SqlConnection con = DBHelper.GetConnection())
             {
                 con.Open();
-                // Assuming you have a DateTime column named 'DateCreated' indicating when the job was created
-                string query = "SELECT TOP 10 * FROM Job ORDER BY TimeUploaded DESC"; // Change the query according to your table structure
+                // Assuming your table has a column named 'TimeUploaded' for the time when the job was uploaded
+                string query = "SELECT TOP 10 JobId, Thumbnail, JobTitle, Description, TimeUploaded FROM Job ORDER BY TimeUploaded DESC";
 
                 SqlCommand cmd = new SqlCommand(query, con);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -151,8 +145,7 @@ namespace DAL
                     job.Thumbnail = reader["Thumbnail"].ToString();
                     job.JobTitle = reader["JobTitle"].ToString();
                     job.Description = reader["Description"].ToString();
-
-                    // Populate other job details as needed
+                    job.TimeUploaded = Convert.ToDateTime(reader["TimeUploaded"]); // Retrieve "Uploaded Time"
 
                     latestJobs.Add(job);
                 }
@@ -160,5 +153,6 @@ namespace DAL
 
             return latestJobs;
         }
+
     }
 }

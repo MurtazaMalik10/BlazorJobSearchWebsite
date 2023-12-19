@@ -3,8 +3,68 @@
 
 @using Entities
 @using DAL
+<style>
+    .thumbnail-column {
+        height: 200px; /* Set a fixed height for the thumbnail column */
+        overflow: hidden;
+    }
 
-<h3 class="mb-4 text-center">Job Listings</h3>
+    .thumbnail-wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .thumbnail-img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .card {
+        border-radius: 10px;
+        transition: transform 0.3s ease-in-out;
+        height: 100%; /* Set a fixed height for the cards */
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+    ..card-body {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .job-content {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+        .job-content .card-body {
+            flex: 1 1 auto;
+        }
+
+    .card-buttons {
+        margin-top: auto;
+    }
+
+    .truncate-text {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 3; /* Number of lines to show before truncating */
+    }
+</style>
+
+<h1 class="mb-4 text-center">Job Listings</h1>
 
 <div class="row row-cols-1 row-cols-md-2 g-4">
     @if (jobs != null && jobs.Any())
@@ -12,26 +72,29 @@
         @foreach (var job in jobs)
         {
             <div class="col mb-4">
-                <div class="card">
-                    <div class="card-body d-flex">
-                        <!-- Thumbnail column -->
-                        <div class="thumbnail-column me-4">
-                            @if (!string.IsNullOrEmpty(job.Thumbnail))
-                            {
-                                <img class="thumbnail-img" src="@($"data:image/png;base64,{job.Thumbnail}")" alt="Thumbnail" />
-                            }
-                        </div>
-
-                        <!-- Job content column -->
-                        <div class="job-content">
-                            <h5 class="card-title">@job.JobTitle</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Job ID: @job.JobId</h6>
-                            <p class="card-text">@job.Description</p>
-                            <div class="d-flex justify-content-between">
-                                <button class="btn btn-primary me-2" @onclick="@(() => ViewJobDetails(job.JobId))">View Job</button>
-                                <button class="btn btn-danger" @onclick="@(() => DeleteJob(job.JobId))">Delete Job</button>
+                <div class="card h-100 shadow">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <div class="thumbnail-column">
+                                <div class="thumbnail-wrapper">
+                                    @if (!string.IsNullOrEmpty(job.Thumbnail))
+                                    {
+                                        <img class="card-img-top thumbnail-img" src="@($"data:image/png;base64,{job.Thumbnail}")" alt="Thumbnail" />
+                                    }
+                                </div>
                             </div>
-                            <!-- Additional job details can be added here -->
+                        </div>
+                        <div class="col-md-8">
+                            <div class="job-content">
+                                <div class="card-body">
+                                    <h3 class="card-title">@job.JobTitle</h3>
+                                    <p class="card-text truncate-text">@job.Description</p>
+                                </div>
+                                <div class="card-buttons d-flex justify-content-between align-items-end">
+                                    <button class="btn btn-primary" @onclick="@(() => ViewJobDetails(job.JobId))">View Job</button>
+                                    <button class="btn btn-danger" @onclick="@(() => DeleteJob(job.JobId))">Delete Job</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -45,17 +108,6 @@
         </div>
     }
 </div>
-
-<style>
-    /* Define the CSS for thumbnail images */
-    .thumbnail-img {
-        max-width: 100px; /* Adjust the maximum width as needed */
-        max-height: 100px; /* Adjust the maximum height as needed */
-        object-fit: cover; /* Maintain aspect ratio and cover the area */
-        border-radius: 5px; /* Add border-radius for rounded corners */
-    }
-</style>
-
 @code {
     List<EntJobs> jobs;
 

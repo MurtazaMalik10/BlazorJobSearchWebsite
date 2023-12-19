@@ -3,49 +3,139 @@
 @using BlazorInputFile
 @using DAL
 @using Entities
-@* @attribute [Authorize(Roles = "Company")] *@
+@attribute [Authorize(Roles = "Company")]
 @inject NavigationManager NavigationManager
 @inject JobApplicationDAL JobApplicationDAL
 @using proj.Service
 @inject IFileUpload fileUpload
 @inject IWebHostEnvironment env
 
+<style>
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #333;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .col-md-6 {
+        padding: 20px;
+    }
+
+    .form-label {
+        font-weight: bold;
+        color: #555;
+    }
+
+    .form-control {
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        padding: 8px;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .custom-file {
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }
+
+    .custom-file-input {
+        opacity: 0;
+        width: 100%;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+    }
+
+    .custom-file-label {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        cursor: pointer;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .btn-primary {
+        padding: 10px 20px;
+        font-size: 1.2rem;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .writeImg {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
 <div class="container">
     <h3 class="mt-4 mb-3 text-center">Apply for Job</h3>
-    <form>
-        <div class="mb-3">
-            <label for="fullName" class="form-label">Full Name</label>
-            <input type="text" class="form-control" id="fullName" @bind="jobApplication.FullName" />
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" @bind="jobApplication.Email" />
-        </div>
-        <div class="mb-3">
-            <label for="contactNumber" class="form-label">Contact Number</label>
-            <input type="text" class="form-control" id="contactNumber" @bind="jobApplication.ContactNumber" />
-        </div>
-        <div class="form-group">
-            <label for="fileInput" class="form-label">Thumbnail:</label>
-            <div class="input-group">
-                <div class="custom-file">
-                    <Microsoft.AspNetCore.Components.Forms.InputFile type id="fileInput" accept="image/*" OnChange="HandleFileChange" class="custom-file-input" />
-                    <label class="custom-file-label" for="fileInput">Choose file</label>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="fullName" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="fullName" @bind="jobApplication.FullName" />
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" @bind="jobApplication.Email" />
+            </div>
+            <div class="mb-3">
+                <label for="contactNumber" class="form-label">Contact Number</label>
+                <input type="text" class="form-control" id="contactNumber" @bind="jobApplication.ContactNumber" />
+            </div>
+            <div class="form-group">
+                <label for="fileInput" class="form-label">Upload your CV(Max. 500 Kbs):</label>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <Microsoft.AspNetCore.Components.Forms.InputFile type id="fileInput" accept="image/*" OnChange="HandleFileChange" class="custom-file-input" />
+                        <label class="custom-file-label" for="fileInput">Choose File</label>
+                    </div>
                 </div>
             </div>
+            <div class="d-flex justify-content-center mt-4">
+                <button class="btn btn-success accordion-button" @onclick="SubmitApplication">Submit Application</button>
+            </div>
         </div>
-        <!-- This image tag might need modification depending on the context of base64String variable -->
-        <div class="form-group">
-            <img class="writeImg" src="@($"data:image/png;base64,{base64String}")" alt="" />
+        <div class="col-md-6">
+            <div class="form-group">
+                <img class="writeImg" src="@($"data:image/png;base64,{base64String}")" alt="" />
+            </div>
         </div>
-        <div class="text-center">
-            <button class="btn btn-primary" @onclick="SubmitApplication">Submit Application</button>
-        </div>
-    </form>
+    </div>
 </div>
 
+
 @code {
-    private JobApplication jobApplication = new JobApplication();
+    private EntJobApplication jobApplication = new EntJobApplication();
     private string base64String;
 
     [Parameter]

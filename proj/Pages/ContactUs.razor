@@ -1,0 +1,95 @@
+﻿@page "/contactus"
+
+<style>
+    /* Custom styles for Contact Us page */
+    body {
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        background-color: #f8f8f8;
+        color: #333;
+        margin-top: 20px;
+    }
+
+    .contact-container {
+        margin-top: 50px;
+        text-align: center;
+    }
+
+    .contact-info {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+    .contact-form {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .form-control {
+        margin-bottom: 15px;
+        border-radius: 5px;
+        font-size: 16px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        transition: border-color 0.3s ease;
+    }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #0066b2;
+        }
+
+    .btn-submit {
+        padding: 10px 20px;
+        border-radius: 5px;
+        background-color: #0066b2;
+        color: #fff;
+        transition: background-color 0.3s ease;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+
+        .btn-submit:hover {
+            background-color: #005299;
+        }
+</style>
+
+<div class="row">
+    <h3 class="text-center mb-4">Contact Us</h3>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form class="contact-form">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" rows="5" placeholder="Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Contact Information</h5>
+                    <p class="card-text">Email: info@jobportal.com</p>
+                    <p class="card-text">Phone: +1234567890</p>
+                    <p class="card-text">Address: Air University, Islamabad, Pakistan</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

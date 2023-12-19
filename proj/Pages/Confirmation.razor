@@ -5,44 +5,92 @@
 @inject NavigationManager NavigationManager
 @inject JobApplicationDAL JobApplicationDAL
 
-<div class="container">
-    <h3 class="mt-4 mb-3 text-center">Confirmation</h3>
-
-    @if (jobApplication != null && jobApplication.JobId != 0)
-    {
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Job Application Details</h5>
-                <p class="card-text">Job ID: @jobApplication.JobId</p>
-                <p class="card-text">Full Name: @jobApplication.FullName</p>
-                <p class="card-text">Email: @jobApplication.Email</p>
-                <p class="card-text">Contact Number: @jobApplication.ContactNumber</p>
-                <img src="/@jobApplication.CVFile" alt="CV" class="profile-photo" />
-                
-                <!-- Display other job application details as needed -->
-            </div>
-        </div>
-    }
-    else
-    {
-        <p>No job application details found.</p>
-    }
-</div>
 <style>
     .thumbnail-img {
-        max-width: 100px;
-        max-height: 100px;
+        width: 800px;
+        height: 800px;
         object-fit: cover;
         border-radius: 5px;
     }
+
+    .thumbnail-column {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    .job-details h5 {
+        font-size: 4rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    .job-details h3 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #0066b2;
+        margin-bottom: 10px;
+    }
+
+    .job-details p {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
 </style>
+
+<div class="container">
+    <h1 class="mt-4 mb-3 text-center" style="font-weight: bold;">Thank You @jobApplication.FullName for Applying!</h1>
+    <h3 class="mt-4 mb-3 text-center text-success font-weight-bold">Here are your Details</h3>
+    <div class="row">
+        <div class="col-md-6 job-details">
+            @if (jobApplication != null && jobApplication.JobId != 0)
+            {
+                <div class="row mb-3">
+                    <div class="col">
+                        <h5>User Details</h5>
+                        <h3 class="text-success font-weight-bold">Full Name:</h3>
+                        <p>@jobApplication.FullName</p>
+                        <h3 class="text-success font-weight-bold">Email:</h3>
+                        <p class="text-primary">@jobApplication.Email</p>
+                        <h3 class="text-success font-weight-bold">Contact Number:</h3>
+                        <p class="text-dark">@jobApplication.ContactNumber</p>
+                        <!-- Display other job application details as needed -->
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                <p>No job application details found.</p>
+            }
+        </div>
+        <div class="col-md-6">
+            <div class="row mb-3">
+                <div class="col">
+                    <h5 class="align text-center font-weight-bold" style="font-size: 2.5em; font-weight: bold;">Your CV</h5>
+                    <div class="thumbnail-column">
+                        @if (!string.IsNullOrEmpty(jobApplication.CVFile))
+                        {
+                            <img class="thumbnail-img" src="@($"data:image/png;base64,{jobApplication.CVFile}")" alt="CV" />
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @code {
-    private int JobId;
-    private JobApplication jobApplication = new JobApplication();
+    [Parameter]
+    public int JobId { get; set; }
+    private EntJobApplication jobApplication = new EntJobApplication();
 
     protected override void OnInitialized()
     {
-        JobId = JobId; // Get the JobId from the route parameter
+        // Get the JobId from the route parameter
+        JobId = int.Parse(NavigationManager.Uri.Split('/').Last());
 
         // Fetch and display job application details using JobApplicationDAL
         jobApplication = JobApplicationDAL.GetJobApplication(JobId);

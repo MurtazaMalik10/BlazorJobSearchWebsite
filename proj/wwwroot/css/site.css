@@ -1,62 +1,52 @@
-/* General reset */
-* {
+/* Resetting default margins/paddings and setting full width */
+html, body, div, p, ul, li {
     margin: 0;
     padding: 0;
+    width: 100%;
     box-sizing: border-box;
 }
 
+/* Body and general styles */
 body {
-    /* Adjust font-family, font-size, line-height, etc. */
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 16px;
+    font-weight: 400;
     line-height: 1.6;
-    background-color: white;
-    color: #444;
-    overflow-x: hidden;
+    background-color: #f5f5f5;
+    color: #333;
+    overflow-x: hidden; /* Hide horizontal overflow */
 }
 
-/* Define variables for colors */
-:root {
-    --primary-color: #0066b2;
-    --secondary-color: #ffc107;
-    --text-color: #333;
-    --text-color-light: #666;
-    --background-color: #fff;
-    /* Define other colors as needed */
-}
-
-/* Title styles */
+/* Title */
 .title {
-    font-size: 28px;
-    font-weight: bold;
-    color: var(--text-color);
-    margin-bottom: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
 }
-
 
 /* Card styles */
 .card {
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
     .card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
 
 .card-body {
-    padding: 20px;
+    padding: 1rem;
 }
 
 .card-title {
-    font-size: 18px;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
     font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
 }
 
 .card-text {
@@ -65,60 +55,115 @@ body {
 
 /* Navbar styles */
 /*.navbar {
-    padding: 12px 20px;
-    background-color: #222;
-    color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}*/
+    background-color: #333;
+}
 
-/* Navbar Brand styles */
-/*.navbar-brand {
-    font-size: 24px;
-    font-weight: bold;
-    color: #ffc107;
-    text-transform: uppercase;
-    text-decoration: none;
-}*/
+.navbar-brand,
+.navbar-toggler-icon {
+    color: white;*/ /* Change the color of brand text and toggler icon */
+/*}
 
-/* Navbar Links styles */
-/*.navbar-nav .nav-link {
-    padding: 10px 15px;
-    font-size: 14px;
-    color: #fff;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}*/
+.navbar-nav .nav-link {
+    color: white;*/ /* Change the color of nav links */
+/*}*/
 
-    /* Navbar Links Hover styles */
-    /*.navbar-nav .nav-link:hover {
-        color: #ffc107;
-    }*/
+/* Active link */
+/*.navbar-nav .nav-item.active .nav-link {
+    color: red;*/ /* Color of active nav link */
+/*}*/
 
+/* Hover effect */
+/*.navbar-nav .nav-link:hover {
+    color: yellow;*/ /* Color of nav links on hover */
+/*}*/
 
 /* Footer */
 .footer {
-    background-color: var(--primary-color);
-    color: var(--background-color);
+    background-color: #333;
+    color: white;
     text-align: center;
-    padding: 20px 0;
+    padding: 1rem 0; /* Reduce padding for responsiveness */
+    width: 100%; /* Make footer span the full width */
 }
 
-    .footer p {
-        margin-bottom: 10px;
-    }
+/* Flexbox for better responsiveness */
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 
-/* Media Queries */
-/*@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+.footer p {
+    margin: 0.5rem 0; /* Add spacing between footer content */
+}
 
-    .navbar-nav {
-        margin-top: 10px;
+/* Responsive design */
+@media (min-width: 576px) {
+    /* Adjust styles for smaller screens */
+    .footer-content {
+        flex-direction: row;
     }
 }
-*/
+
+@media (min-width: 768px) {
+    /* Adjust styles for medium screens */
+}
+
+@media (min-width: 992px) {
+    /* Adjust styles for large screens */
+}
+
+@media (min-width: 1200px) {
+    /* Adjust styles for extra-large screens */
+}
+
+
+/* Animations */
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* Jumbotron */
+.jumbotron {
+    animation: slideInLeft 1s ease-in-out;
+    margin-top: 20px; /* Adjust spacing between carousel and hero section */
+}

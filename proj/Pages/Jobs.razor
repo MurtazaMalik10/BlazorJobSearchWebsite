@@ -17,10 +17,6 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="companyId" class="form-label">Company ID:</label>
-                        <input type="text" id="companyId" class="form-control" @bind="newJob.CompanyID" />
-                    </div>
-                    <div class="form-group">
                         <label for="jobTitle" class="form-label">Job Title:</label>
                         <input type="text" id="jobTitle" class="form-control" @bind="newJob.JobTitle" />
                     </div>
@@ -29,15 +25,11 @@
                         <textarea id="description" class="form-control" rows="5" @bind="newJob.Description"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="categoryId" class="form-label">Category ID:</label>
-                        <input type="text" id="categoryId" class="form-control" @bind="newJob.CatId" />
-                    </div>
-                    <div class="form-group">
-                        <label for="fileInput" class="form-label">Thumbnail:</label>
+                        <label for="fileInput" class="form-label">Upload Company Picture/Thumbnail:</label>
                         <div class="input-group">
                             <div class="custom-file">
                                 <Microsoft.AspNetCore.Components.Forms.InputFile type="file" id="fileInput" accept="image/*" OnChange="HandleFileChange" class="custom-file-input" aria-describedby="inputGroupFileAddon" />
-                                <label class="custom-file-label" for="fileInput">Choose file</label>
+                                <label class="custom-file-label" for="fileInput"></label>
                             </div>
                         </div>
                     </div>

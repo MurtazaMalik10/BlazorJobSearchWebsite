@@ -1,4 +1,4 @@
-﻿@page "/logincompany"
+﻿@page "/login"
 @using proj.Auth
 @using Microsoft.Extensions.Configuration
 @using Microsoft.AspNetCore.Components.Authorization
@@ -16,9 +16,9 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="card-title text-center text-white">Company Login</h3>
-                    <p class="text-center">Login with your Company Credentials</p>
+                <div class="card-header bg-success text-white">
+                    <h3 class="card-title text-center text-white">Login</h3>
+                    <p class="text-center">Login with your Credentials</p>
                 </div>
                 <div class="card-body">
                     <div class="alert alert-danger" role="alert" style="display: @errorMessageDisplay">@errorMessage</div>
@@ -46,7 +46,12 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="text-center">
-                <p>Don't have an account? <a href="/registercompany">Register</a></p>
+                <!-- Registration buttons -->
+                <p>Don't have an account?</p>
+                <div class="d-flex justify-content-center">
+                    <a href="/registeruser" class="btn btn-primary me-2">Register as User</a>
+                    <a href="/registercompany" class="btn btn-primary">Register as Company</a>
+                </div>
             </div>
         </div>
     </div>

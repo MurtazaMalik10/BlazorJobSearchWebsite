@@ -9,7 +9,7 @@ namespace DAL
     public class JobApplicationDAL
     {
         // Method to submit a job application to the database
-        public void SubmitJobApplication(JobApplication jobApplication)
+        public void SubmitJobApplication(EntJobApplication jobApplication)
         {
             using (SqlConnection con = DBHelper.GetConnection())
             {
@@ -21,21 +21,21 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@FullName", jobApplication.FullName);
                 cmd.Parameters.AddWithValue("@Email", jobApplication.Email);
                 cmd.Parameters.AddWithValue("@ContactNumber", jobApplication.ContactNumber);
-                cmd.Parameters.AddWithValue("@CVFile", jobApplication.CVFile);
+                cmd.Parameters.AddWithValue("@CVFile", jobApplication.CVFile); // Save image data
 
                 cmd.ExecuteNonQuery();
             }
         }
 
         // Method to retrieve a job application based on JobId from the database
-        public JobApplication GetJobApplication(int jobId)
+        public EntJobApplication GetJobApplication(int jobId)
         {
-            JobApplication jobApplication = new JobApplication();
+            EntJobApplication jobApplication = new EntJobApplication();
 
             using (SqlConnection con = DBHelper.GetConnection())
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("GetJobApplicationDetails", con);
+                SqlCommand cmd = new SqlCommand("SP_GetJobApplicationDetails", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@JobId", jobId);
 
@@ -47,7 +47,7 @@ namespace DAL
                         jobApplication.FullName = reader["FullName"].ToString();
                         jobApplication.Email = reader["Email"].ToString();
                         jobApplication.ContactNumber = reader["ContactNumber"].ToString();
-                        cmd.Parameters.AddWithValue("@CVFile", jobApplication.CVFile);
+                        jobApplication.CVFile = reader["CVFile"].ToString(); // Retrieve image data
                     }
                     // Handle no rows found scenario if needed
                 }
@@ -56,10 +56,10 @@ namespace DAL
             return jobApplication;
         }
 
-        // Method to display job application details
-        public static List<JobApplication> ShowJobApplications()
+// Method to display job application details
+public static List<EntJobApplication> ShowJobApplications()
         {
-            List<JobApplication> jobApplications = new List<JobApplication>();
+            List<EntJobApplication> jobApplications = new List<EntJobApplication>();
 
             SqlConnection con = DBHelper.GetConnection();
             con.Open();
@@ -69,7 +69,7 @@ namespace DAL
 
             while (reader.Read())
             {
-                JobApplication jobApp = new JobApplication();
+                EntJobApplication jobApp = new EntJobApplication();
 
                 jobApp.JobId = Convert.ToInt32(reader["JobId"]);
                 jobApp.FullName = reader["FullName"].ToString();

@@ -1,39 +1,80 @@
 ﻿/* navbar.css */
 
-.navbar {
+/* Navbar */
+.navbar-custom {
     background-color: #0066b2;
+    padding: 15px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow */
 }
 
-.navbar-brand {
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-.nav-link {
-    color: white !important;
-    transition: color 0.3s ease;
-}
-
-    .nav-link:hover {
-        color: #ffc107 !important;
+    /* Navbar Brand */
+    .navbar-custom .navbar-brand {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: transform 0.3s ease; /* Adding a transition effect */
     }
 
-.btn {
-    margin-left: 5px;
-    margin-right: 5px;
-}
+        .navbar-custom .navbar-brand:hover {
+            transform: scale(1.1); /* Scale effect on hover */
+        }
 
-.btn-success {
-    background-color: #28a745;
-}
+    /* Nav Links */
+    .navbar-custom .nav-link {
+        color: white !important;
+        transition: color 0.3s ease;
+        position: relative;
+    }
 
-.btn-danger {
-    background-color: #dc3545;
-}
+        .navbar-custom .nav-link::before {
+            content: ''; /* Creating an underline effect */
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: #ffc107;
+            transition: width 0.3s ease;
+        }
 
-.small-profile-photo {
-    width: 40px; /* Adjust the width as needed */
-    height: 40px; /* Maintain aspect ratio */
-}
+        .navbar-custom .nav-link:hover::before {
+            width: 100%; /* Show underline on hover */
+        }
+
+    /* Buttons */
+    .navbar-custom .btn {
+        margin-left: 5px;
+        margin-right: 5px;
+        transition: transform 0.3s ease; /* Adding a button scale effect */
+    }
+
+    .navbar-custom .btn-success,
+    .navbar-custom .btn-danger {
+        color: white;
+        transition: background-color 0.3s ease;
+        border-radius: 5px;
+    }
+
+        .navbar-custom .btn-success:hover {
+            background-color: #218838; /* Darken color on hover */
+            transform: scale(1.1); /* Scale effect on hover */
+        }
+
+        .navbar-custom .btn-danger:hover {
+            background-color: #c82333; /* Darken color on hover */
+            transform: scale(1.1); /* Scale effect on hover */
+        }
+
+    /* Small Profile Photo */
+    .navbar-custom .small-profile-photo {
+        width: 40px; /* Adjust the width as needed */
+        height: 40px; /* Maintain aspect ratio */
+        border-radius: 50%; /* Creating a circular shape */
+        overflow: hidden;
+        transition: transform 0.3s ease; /* Adding a photo scale effect */
+    }
+
+        .navbar-custom .small-profile-photo:hover {
+            transform: scale(1.1); /* Scale effect on hover */
+        }
