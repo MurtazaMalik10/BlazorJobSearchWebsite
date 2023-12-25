@@ -3,50 +3,111 @@
 @using Entities
 @using DAL
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header bg-danger text-white">
-                    <h3 class="card-title text-center text-white">Register as a Company</h3>
-                </div>
-                <div class="card-body">
-                    <div class="alert alert-danger" role="alert" style="display: @errorMessageDisplay">@errorMessage</div>
+<HeadContent>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 
-                    <form @onsubmit="RegisterCompany">
-                        <div class="mb-3">
-                            <label for="firstName" class="form-label">First Name</label>
-                            <input type="text" class="form-control" id="firstName" @bind="company.FirstName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="lastName" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" id="lastName" @bind="company.LastName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="role" class="form-label">Role</label>
-                            <select class="form-control" id="role" @bind="company.Roles" required>
-                                <option value="Company">Company</option>
-                                <option value="User">User</option>
-                                <!-- Add more options if needed -->
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" @bind="company.Email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" @bind="company.Password" required>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Register</button>
-                        </div>
-                    </form>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 100; /* Regular weight */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600; /* Semi-bold weight for headings */
+        }
+
+        .card {
+            border-radius: 0px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px; /* Adjust top margin to position the card */
+            background-color: black;
+            color: white;
+            height:600px;
+        }
+
+        .card-header {
+            border-radius: 15px 15px 0 0;
+            background-color: #28a745; /* Use your desired background color */
+        }
+
+        .card-title {
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .increased-height {
+            height: 800px; /* Change this value to your desired height */
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #0056b3;
+            }
+
+        .background-image {
+            background-size: cover;
+            background-position: center;
+            height: 100vh; /* Adjust the height as needed */
+            padding-right: 0;
+            padding-left: 0;
+            margin-right: 0;
+            margin-left: 0;
+        }
+    </style>
+</HeadContent>
+
+<div class="container-fluid p-0" style="background-image: url('/skyline.jpg'); background-size: cover; background-position: center; background-position-x: center; background-position-y: center; height: 100vh;">
+    <div class="row justify-content-end h-100">
+        <div class="col-md-3 d-flex align-items-center justify-content-center">
+            <div class="card" style="border-radius: 0; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin-top: 20px; background-color: black; color: white;">
+                <div class="card-header bg-dark text-white">
+                    <h3 class="card-title text-center">Register as a Company</h3>
+                </div>
+                <div class="card-body" style="color: white;">
+                        <form @onsubmit="RegisterCompany">
+                        <div class="mb-3" style="border-bottom: 1px solid white;">
+                                <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" @bind="company.FirstName" required style="background-color: black; border: none; color: white;">
+                            </div>
+                        <div class="mb-3" style="border-bottom: 1px solid white;">
+                                <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" @bind="company.LastName" required style="background-color: black; border: none; color: white;">
+                            </div>
+                        <div class="mb-3" style="border-bottom: 1px solid white;">
+                                <label for="role" class="form-label">Role</label>
+                            <select class="form-control" id="role" @bind="company.Roles" required style="background-color: black; border: none; color: white;">
+                                    <option value="Company">Company</option>
+                                    <option value="ThirdParty">Third Party</option>
+                                    <!-- Add more options if needed -->
+                                </select>
+                            </div>
+                        <div class="mb-3" style="border-bottom: 1px solid white;">
+                                <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" @bind="company.Email" required style="background-color: black; border: none; color: white;">
+                            </div>
+                        <div class="mb-3" style="border-bottom: 1px solid white;">
+                                <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" @bind="company.Password" required style="background-color: black; border: none; color: white;">
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success">Register</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
 
 @code {
     private EntCompany company = new EntCompany();
@@ -57,7 +118,7 @@
     {
         try
         {
-            // Call the SaveEditor method from DALEditor to save editor data
+            // Call the SaveCompany method from DALCompany to save company data
             DALCompany.SaveCompany(company);
 
             errorMessage = "Registration successful.";

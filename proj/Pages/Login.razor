@@ -12,45 +12,148 @@
 @inject AuthenticationStateProvider authStateProvider
 @inject IJSRuntime js
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
+<HeadContent>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container styles */
+        .container {
+            margin-top: 5%;
+            background-color: white;
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Card styles */
+        .card {
+            background-color: black;
+            border: none;
+            border-radius: 10px;
+            padding: 20px;
+            height:500px;
+            width:auto;
+        }
+
+        /* Form styles */
+        .form-label {
+            color: white;
+            font-weight: bold;
+        }
+
+        .form-control {
+            background-color: black;
+            border: none;
+            border-bottom: 1px solid white; /* Adding white underline */
+            color: white;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn-primary,
+        .btn-login
+         {
+            background-color: orange;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: white;
+            transition: all 0.3s ease;
+            width:200px;
+        }
+
+        .btn-register {
+            width: fit-content; /* Adjust the width as needed */
+            white-space: nowrap; /* Prevent line breaks */
+            overflow: hidden; /* Hide any overflow */
+            text-overflow: ellipsis; /* Add ellipsis for text overflow */
+            background-color: orange;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+            .btn-primary:hover,
+            .btn-login:hover,
+            .btn-register:hover {
+                background-color: black; /* Darker orange on hover */
+                color: white;
+            }
+
+        .welcome-heading {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 1000;
+            font-size: 3.5rem;
+            color: white;
+            text-align: center;
+            margin-bottom: 4.5rem;
+        }
+
+        .card {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .text-white {
+            color: white;
+            font-size: 1rem; /* Adjust the font size as needed */
+            /* Add any additional styles here */
+        }
+
+        .card-title {
+            font-size: 2.0rem; /* Change the font size as desired */
+            font-weight: bold; /* Add bold font weight */
+            }
+    </style>
+
+
+
+<!-- Your existing HTML content remains unchanged -->
+
+</HeadContent>
+<div class="container-fluid p-0" style="background-image: url('/login.jpg'); background-size: cover; background-position: center; height: 100vh;">
+    <div class="row justify-content-center align-items-center h-100">
         <div class="col-md-6">
+            <!-- Heading added above the card -->
+            <h3 class="welcome-heading">Welcome Back!</h3>
+
             <div class="card">
-                <div class="card-header bg-success text-white">
-                    <h3 class="card-title text-center text-white">Login</h3>
-                    <p class="text-center">Login with your Credentials</p>
+                <div class="card-header bg-black text-white">
+                    <h3 class="card-title text-center text-white">Login with your Credentials</h3>
                 </div>
                 <div class="card-body">
                     <div class="alert alert-danger" role="alert" style="display: @errorMessageDisplay">@errorMessage</div>
 
                     <EditForm Model="company">
-                        <div class="mb-3">
+                        <div class="mb-3" style="border-bottom: 1px solid white;">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="Email" @bind="company.Email" required>
+                            <input type="email" class="form-control" id="Email" @bind="company.Email" required style="background-color: black; border: none; color: white;">
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" style="border-bottom: 1px solid white;">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="Password" @bind="company.Password" required>
+                            <input type="password" class="form-control" id="Password" @bind="company.Password" required style="background-color: black; border: none; color: white;">
                         </div>
                         <div class="text-center">
-                            <button @onclick="Authenticate" class="btn btn-primary">Login</button>
+                            <button @onclick="Authenticate" class="btn btn-primary btn-login">Login</button>
                         </div>
                     </EditForm>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container mt-3">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="text-center">
-                <!-- Registration buttons -->
-                <p>Don't have an account?</p>
-                <div class="d-flex justify-content-center">
-                    <a href="/registeruser" class="btn btn-primary me-2">Register as User</a>
-                    <a href="/registercompany" class="btn btn-primary">Register as Company</a>
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <p class="text-white">Don't have an account?</p>
+                                <div class="d-flex justify-content-center">
+                                    <a href="/registeruser" class="btn btn-register me-2">Register as User</a>
+                                    <a href="/registercompany" class="btn btn-register">Register as Company</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -66,7 +169,7 @@
     {
         var userAccount = userAccountService.GetByUserName(company);
 
-        if (userAccount.FirstName == null || userAccount.Roles == null)
+        @if (userAccount.FirstName == null && userAccount.Roles == null)
         {
             await js.InvokeVoidAsync("alert", "Invalid Credentials");
             return;

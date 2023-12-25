@@ -20,10 +20,13 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@thumbnail", jobs.Thumbnail); // Ensure this matches the expected type and size in the database
                 cmd.Parameters.AddWithValue("@isactive", jobs.IsActive);
                 cmd.Parameters.AddWithValue("@currentTime", jobs.TimeUploaded);
+                cmd.Parameters.AddWithValue("@salary", jobs.Salary); // Add Salary parameter
+                cmd.Parameters.AddWithValue("@type", jobs.Type); // Add Type parameter
 
                 cmd.ExecuteNonQuery();
             }
         }
+
 
 
 
@@ -70,12 +73,20 @@ namespace DAL
                 ej.Description = reader["Description"].ToString();
                 ej.Thumbnail = reader["Thumbnail"].ToString();
 
+                // Handle Salary and Type as decimal and string respectively
+                if (reader["Salary"] != DBNull.Value)
+                {
+                    ej.Salary = Convert.ToDecimal(reader["Salary"]);
+                }
+
+                ej.Type = reader["Type"].ToString();
                 jobList.Add(ej);
             }
 
             con.Close();
             return jobList;
         }
+
 
         public static EntJobs GetJobById(int jobId)
         {
@@ -99,7 +110,9 @@ namespace DAL
                                 JobTitle = reader["JobTitle"].ToString(),
                                 Description = reader["Description"].ToString(),
                                 Thumbnail = reader["Thumbnail"].ToString(),
-                                TimeUploaded = Convert.ToDateTime(reader["TimeUploaded"]) // Retrieve and set TimeUploaded
+                                TimeUploaded = Convert.ToDateTime(reader["TimeUploaded"]),
+                                Salary = reader["Salary"] != DBNull.Value ? Convert.ToDecimal(reader["Salary"]) : (decimal?)null,
+                                Type = reader["Type"].ToString()
                             };
                         }
                     }
@@ -108,6 +121,7 @@ namespace DAL
 
             return job;
         }
+
 
         public static void DeleteJob(int jobId)
         {
@@ -133,7 +147,7 @@ namespace DAL
             {
                 con.Open();
                 // Assuming your table has a column named 'TimeUploaded' for the time when the job was uploaded
-                string query = "SELECT TOP 10 JobId, Thumbnail, JobTitle, Description, TimeUploaded FROM Job ORDER BY TimeUploaded DESC";
+                string query = "SELECT TOP 10 JobId, Thumbnail, JobTitle, Description, Salary, Type, TimeUploaded FROM Job ORDER BY TimeUploaded DESC";
 
                 SqlCommand cmd = new SqlCommand(query, con);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -146,6 +160,8 @@ namespace DAL
                     job.JobTitle = reader["JobTitle"].ToString();
                     job.Description = reader["Description"].ToString();
                     job.TimeUploaded = Convert.ToDateTime(reader["TimeUploaded"]); // Retrieve "Uploaded Time"
+                    job.Salary = reader["Salary"] != DBNull.Value ? Convert.ToDecimal(reader["Salary"]) : (decimal?)null;
+                    job.Type = reader["Type"].ToString();
 
                     latestJobs.Add(job);
                 }
@@ -153,6 +169,7 @@ namespace DAL
 
             return latestJobs;
         }
+
 
     }
 }

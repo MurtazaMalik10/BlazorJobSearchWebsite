@@ -1,0 +1,126 @@
+﻿@page "/viewjobapplications/{JobId:int}"
+@using DAL
+@using Entities
+@inject JobApplicationDAL JobApplicationDAL
+@inject NavigationManager NavigationManager
+<HeadContent>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    /* Custom CSS styles */
+    .job-application-details {
+        font-family: 'Roboto', sans-serif;
+        margin-top: 20px;
+    }
+
+    h3 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 28px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .user-details {
+        border-right: 1px solid #ccc;
+        padding-right: 20px;
+    }
+
+        .user-details h5 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+    .cv-details {
+        padding-left: 20px;
+    }
+
+        .cv-details h5 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+    .thumbnail-column {
+        max-width: 200px;
+        margin-top: 10px;
+    }
+
+    .thumbnail-img {
+        max-width: 500%;
+        height: 500%;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .no-cv {
+        font-style: italic;
+        color: #888;
+        margin-top: 10px;
+        font-family: 'Roboto', sans-serif;
+    }
+
+        .section-heading {
+            text-align: left;
+            font-weight:bolder;
+            font-size: 24px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .user-info {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            padding-bottom: 5px;
+        }
+</style>
+</HeadContent>
+
+<h3 class="mt-4 mb-3">Job Application Details</h3>
+
+@if (jobApplication != null && jobApplication.JobId != 0)
+{
+    <div class="job-application-details row">
+        <div class="col-md-6 user-details">
+            <h3 class="section-heading">User Details</h3>
+            <p class="user-info"><strong>Job ID:</strong> @jobApplication.JobId</p>
+            <p class="user-info"><strong>Full Name:</strong> @jobApplication.FullName</p>
+            <p class="user-info"><strong>Email:</strong> @jobApplication.Email</p>
+            <p class="user-info"><strong>Contact Number:</strong> @jobApplication.ContactNumber</p>
+            <!-- Include other job application details as needed -->
+        </div>
+        <div class="col-md-6 cv-details">
+            <h5 class="align-text-center"> CV</h5>
+            <div class="thumbnail-column">
+                @if (!string.IsNullOrEmpty(jobApplication.CVFile))
+                {
+                    <img class="thumbnail-img" src="@($"data:image/png;base64,{jobApplication.CVFile}")" alt="CV" />
+                }
+                else
+                {
+                    <p class="no-cv">No CV available</p>
+                }
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p>No job application details found.</p>
+}
+
+@code {
+    [Parameter]
+    public int JobId { get; set; }
+    private EntJobApplication jobApplication = new EntJobApplication();
+
+    protected override void OnInitialized()
+    {
+        // Get the JobId from the route parameter
+        JobId = int.Parse(NavigationManager.Uri.Split('/').Last());
+
+        // Fetch and display job application details using JobApplicationDAL
+        jobApplication = JobApplicationDAL.GetJobApplication(JobId);
+    }
+}

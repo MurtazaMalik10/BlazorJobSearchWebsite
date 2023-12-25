@@ -9,53 +9,162 @@
 @using Entities
 @using DAL
 @using proj.Service
+<HeadContent>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Apply styles to the container */
+        .container {
+            font-family: 'Roboto', sans-serif;
+            max-width: 1500px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
 
+        /* Apply styles to form fields */
+        h3 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .col-md-6 {
+            padding: 20px;
+        }
+
+        .form-label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 8px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .textarea-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Apply styles to the uploaded image */
+        .writeImg {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        /* Apply styles to the checkbox */
+        .form-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        /* Apply styles to the submit button */
+        .btn-primary {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn-primary:hover {
+                background-color: orange;
+            }
+
+        /* Center-align the button */
+        .text-center {
+            text-align: center;
+        }
+    </style>
+
+
+</HeadContent>
 <div class="container mt-5">
     <h3 class="mb-4 text-center">Create Job</h3>
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <div class="form-group">
-                        <label for="jobTitle" class="form-label">Job Title:</label>
-                        <input type="text" id="jobTitle" class="form-control" @bind="newJob.JobTitle" />
-                    </div>
-                    <div class="form-group">
-                        <label for="description" class="form-label">Description:</label>
-                        <textarea id="description" class="form-control" rows="5" @bind="newJob.Description"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="fileInput" class="form-label">Upload Company Picture/Thumbnail:</label>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <Microsoft.AspNetCore.Components.Forms.InputFile type="file" id="fileInput" accept="image/*" OnChange="HandleFileChange" class="custom-file-input" aria-describedby="inputGroupFileAddon" />
-                                <label class="custom-file-label" for="fileInput"></label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="jobTitle" class="form-label">Job Title:</label>
+                                <input type="text" id="jobTitle" class="form-control" @bind="newJob.JobTitle" />
+                            </div>
+                            <div class="form-group">
+                                <label for="description" class="form-label">Description:</label>
+                                <textarea id="description" class="form-control" rows="5" @bind="newJob.Description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="salary" class="form-label">Salary:</label>
+                                <input type="number" id="salary" class="form-control" @bind="newJob.Salary" />
+                            </div>
+                            <div class="form-group">
+                                <label for="type" class="form-label">Type(Remote/On-Site/Hybrid):</label>
+                                <input type="text" id="type" class="form-control" @bind="newJob.Type" />
+                            </div>
+                            <!-- Add more form fields here -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="fileInput" class="form-label">Upload Company Picture/Thumbnail:</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <Microsoft.AspNetCore.Components.Forms.InputFile type="file" id="fileInput" accept="image/*" OnChange="HandleFileChange" class="custom-file-input" aria-describedby="inputGroupFileAddon" />
+                                        <label class="custom-file-label" for="fileInput"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <img class="writeImg" src="@($"data:image/png;base64,{base64String}")" alt="" />
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <img class="writeImg" src="@($"data:image/png;base64,{base64String}")" alt="" />
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" id="isActive" class="form-check-input" @bind="newJob.IsActive" />
-                        <label class="form-check-label" for="isActive">Is Active</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="currentTime" class="form-label">Current Time:</label>
-                        <input type="datetime-local" id="currentTime" class="form-control" @bind="newJob.TimeUploaded" />
-                    </div>
-
-                    <!-- Add more fields as needed based on your DALJobs.cs fields -->
-
-                    <div class="text-center">
-                        <!-- Center align the button -->
-                        <button @onclick="CreateJob" class="btn btn-primary mt-3">Create Job</button>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-check">
+                                <input type="checkbox" id="isActive" class="form-check-input" @bind="newJob.IsActive" />
+                                <label class="form-check-label" for="isActive">Is Active</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="currentTime" class="form-label">Current Time:</label>
+                                <input type="datetime-local" id="currentTime" class="form-control" @bind="newJob.TimeUploaded" />
+                            </div>
+                            <!-- Add more fields as needed based on your DALJobs.cs fields -->
+                            <div class="text-center">
+                                <!-- Center align the button -->
+                                <button @onclick="CreateJob" class="btn btn-primary mt-3">Create Job</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 @code {
     EntJobs newJob = new EntJobs();
@@ -70,24 +179,7 @@
         // Redirect to job listings page after creating the job
         NavigationManager.NavigateTo("/joblistings");
     }
-    IFileListEntry file;
-    BlazorInputFile.InputFile thumbnailFile;
 
-    // async Task HandleFileSelected(IFileListEntry[] files)
-    // {
-    //     file = files.FirstOrDefault();
-
-    //     if (file != null)
-    //     {
-    //         // Save the file to the server
-    //         await fileUpload.UploadAsync(file, newJob);
-
-    //         // Save the file information to the Thumbnail attribute
-    //         newJob.Thumbnail = file.Name; // You can modify this based on your database schema
-
-    //         StateHasChanged(); // Ensure that the component is re-rendered to display the file information
-    //     }
-    // }
     private string base64String;
 
     private async Task HandleFileChange(InputFileChangeEventArgs e)

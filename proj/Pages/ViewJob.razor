@@ -51,14 +51,14 @@
         font-size: 1.2rem;
         font-weight: bold;
         color: #fff;
-        background-color: #007bff;
+        background-color: green;
         border: none;
         border-radius: 5px;
         transition: background-color 0.3s ease-in-out;
     }
 
         .custom-button:hover {
-            background-color: #0056b3;
+            background-color: black;
         }
 </style>
 
@@ -68,10 +68,13 @@
         <div class="row">
             <div class="col-md-6 job-details">
                 <h3>Job Title: @job.JobTitle</h3>
-                <h3 class="text-success font-weight-bold">Description:</h3> <!-- Updated description heading -->
+                <h3 class="text-success font-weight-bold">Description:</h3>
                 <p>@job.Description</p>
+                <h3 class="text-black font-weight-bold">Salary:</h3> <!-- Display Salary -->
+                <p>@job.Salary</p>
+                <h3 class="text-black font-weight-bold">Type:</h3> <!-- Display Type -->
+                <p>@job.Type</p>
                 <p class="text-muted">@CalculateTimeAgo(job.TimeUploaded)</p>
-                <!-- Apply Now Button with custom style -->
                 <button class="custom-button" @onclick="ApplyNow">Apply Now</button>
             </div>
             <div class="col-md-6 thumbnail-column">
@@ -87,6 +90,7 @@
         <p>No job details found.</p>
     }
 </div>
+
 @code {
     EntJobs job;
 

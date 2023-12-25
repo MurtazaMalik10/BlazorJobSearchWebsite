@@ -1,0 +1,48 @@
+﻿@page "/jobapplications"
+@using DAL
+@using Entities
+@inject JobApplicationDAL JobApplicationDAL
+@inject NavigationManager NavigationManager
+
+<h3 class="mt-4 mb-3 text-center">Job Applications</h3>
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    @if (jobApplications != null && jobApplications.Any())
+    {
+        @foreach (var jobApp in jobApplications)
+        {
+            <div class="col mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Job ID: @jobApp.JobId</h5>
+                        <p class="card-text">Full Name: @jobApp.FullName</p>
+                        <p class="card-text">Email: @jobApp.Email</p>
+                        <p class="card-text">Contact Number: @jobApp.ContactNumber</p>
+                        <!-- Include other details in card body -->
+
+                        <button class="btn btn-primary" @onclick="@(async () => await ViewJobDetails(jobApp.JobId))">View Details</button>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p class="text-center">No job applications found.</p>
+    }
+</div>
+
+@code {
+    List<EntJobApplication> jobApplications;
+
+    protected override void OnInitialized()
+    {
+        // Fetch job applications from the database
+        jobApplications = JobApplicationDAL.ShowJobApplications();
+    }
+
+    private async Task ViewJobDetails(int jobId)
+    {
+        NavigationManager.NavigateTo($"/viewjobapplications/{jobId}");
+    }
+}

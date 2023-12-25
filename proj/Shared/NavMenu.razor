@@ -7,9 +7,13 @@
 @inject AuthenticationStateProvider authStateProvider
 @inject IJSRuntime js
 
-<nav class="navbar navbar-expand-lg navbar-light justify-content-center">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-dark justify-content-center">
     <div class="container-fluid text-center">
-        <a class="navbar-brand d-flex align-items-center" href="#">
+        <a class="navbar-brand d-flex align-items-center justify-content-center" href="#">
             <img src="/Logo.png" alt="Logo" class="profile-photo small-profile-photo me-2" />
             <span class="brand-text">Job Portal</span>
         </a>
@@ -19,64 +23,79 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <div>
-                    <li class="nav-item">
-                        <NavLink class="nav-link" href="/" style="color: white;">Home</NavLink>
-                    </li>
-                </div>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="/" style="color: white;"><i class="fas fa-home"></i> Home</NavLink>
+                </li>
+        </div>
+        <div>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="/aboutus" style="color: white;"><i class="fas fa-info-circle"></i> About Us</NavLink>
+            </li>
+        </div>
+        <div>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="/services" style="color: white;"><i class="fas fa-cogs"></i> Services</NavLink>
+            </li>
+        </div>
+        <AuthorizeView Roles="User">
+            <Authorized>
                 <div>
-                    <li class="nav-item">
-                        <NavLink class="nav-link" href="/companylist" style="color: white;">Registered Companies</NavLink>
-                    </li>
-                </div>
-                <div>
-                    <li class="nav-item">
-                        <NavLink class="nav-link" href="/userlist" style="color: white;">Registered Users</NavLink>
-                    </li>
-                </div>
-                <div>
-                    <li class="nav-item">
-                        <NavLink class="nav-link" href="/jobs" style="color: white;">Create Job</NavLink>
-                    </li>
-                </div>
-
-                <AuthorizeView Roles="Company">
-                    <Authorized>
-                        <!-- Links for Company and Admin roles -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="/jobs">Create Job</a>
-                        </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="/companylist" style="color: white;"><i class="fas fa-building"></i> Registered Companies</NavLink>
+                </li>
+    </div>
+    </Authorized>
+    <!-- Add NotAuthorized section if needed -->
+    </AuthorizeView>
+    <AuthorizeView Roles="Company">
+        <Authorized>
+            <!-- Links for Company and Admin roles -->
+            <div>
+            <li class="nav-item">
+                <a class="nav-link" href="/jobs"><i class="fas fa-plus"></i> Create Job</a>
+            </li>
+            </div>
+            <div>
+            <li class="nav-item">
+                <a class="nav-link" href="/jobapplications"><i class="fas fa-briefcase"></i> Job Applications</a>
+            </li>
+            </div>
                         <!-- Add other links based on roles -->
                     </Authorized>
                     <!-- Add NotAuthorized section if needed -->
                 </AuthorizeView>
             </ul>
-            <div class="d-flex">
-                <AuthorizeView Roles="Editor,User,Admin">
+            <div class="d-flex ms-auto">
+                <!-- Utilize Bootstrap's ms-auto to move the buttons to the right -->
+                <AuthorizeView Roles="Company,User">
                     <Authorized>
                         <!-- Display a logout button if the user is logged in -->
-                        <a class="btn btn-danger me-2" @onclick="Logout">Logout</a>
+                        <a class="btn btn-danger me-2" @onclick="Logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
                     </Authorized>
                     <NotAuthorized>
-                    <!-- Display login buttons for unauthenticated users -->
-                    <div>
-                    <a class="btn btn-success me-2 custom-btn" href="login">
-                        <span class="button-text">Job Seeker</span>
-                    </a>
-                    </div>
-                    <div>
-                    <a class="btn btn-danger me-2 custom-btn" href="login">
-                        <span class="button-text">Company</span>
-                    </a>
-                    </div>
+                        <!-- Display login buttons for unauthenticated users -->
+                        <div>
+                            <a class="btn btn-success me-2 custom-btn" href="login">
+                                <i class="fas fa-user"></i> <span class="button-text">Job Seeker</span>
+                            </a>
+                        </div>
+                        <div>
+                            <a class="btn btn-danger me-2 custom-btn" href="login">
+                                <i class="fas fa-building"></i> <span class="button-text">Company</span>
+                            </a>
+                        </div>
                     </NotAuthorized>
                 </AuthorizeView>
             </div>
-        </div>
     </div>
+</div>
 </nav>
+
 <style>
     /* Custom styling for the navbar */
-
+    body {
+        margin-top: 0; /* Remove default margin */
+    }
     /* Navbar customization */
     .navbar {
         background-color: #0066b2; /* Navbar background color */
@@ -84,22 +103,24 @@
         position: relative;
         z-index: 1000;
         margin-top: 0; /* Remove margin at the top */
+        padding: 20px 0; /* Adjust the top and bottom padding to increase the navbar height */
     }
 
     .navbar-brand {
-        color: white;
-        font-family: 'Oswald', sans-serif; /* Change to Oswald font */
+        font-family: 'Oswald', sans-serif;
         font-size: 24px;
         font-weight: bold;
         text-transform: uppercase;
-        transition: transform 0.3s ease; /* Adding a transition effect */
+        transition: transform 0.3s ease;
+        color: white;
     }
 
         .navbar-brand:hover {
-            transform: scale(1.05); /* Scale effect on hover */
+            transform: scale(1.05);
         }
 
     .nav-link {
+        font-family: 'Roboto', sans-serif;
         color: white !important;
         transition: color 0.3s ease;
         position: relative;

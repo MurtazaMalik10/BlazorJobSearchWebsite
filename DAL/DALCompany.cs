@@ -37,7 +37,7 @@ namespace DAL
             using (SqlConnection con = DBHelper.GetConnection())
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("SP_showCompanyData", con);
+                SqlCommand cmd = new SqlCommand("SP_ShowCompany", con);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
@@ -81,9 +81,15 @@ namespace DAL
         {
             EntCompany updateCompany = new Entities.EntCompany();
             using SqlConnection con = DBHelper.GetConnection();
+            SqlParameter[] sp =
+            {
+                new SqlParameter("@Email", email),
+                new SqlParameter("@Password", password)
+            };
             con.Open();
             using SqlCommand cmd = new SqlCommand("SP_showCompanyData", con);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddRange(sp);
 
             // No need to add parameters for SP_showCompanyData
 

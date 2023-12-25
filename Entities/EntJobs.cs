@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Entities
 {
@@ -30,5 +29,9 @@ namespace Entities
         public string? TimePassed { get; set; }
 
         public string? Thumbnail { get; set; }
+
+        public decimal? Salary { get; set; } // Newly added Salary attribute
+
+        public string? Type { get; set; } // Newly added Type attribute
     }
 }
