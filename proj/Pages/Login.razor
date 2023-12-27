@@ -33,12 +33,17 @@
 
         /* Card styles */
         .card {
-            background-color: black;
             border: none;
             border-radius: 10px;
             padding: 20px;
-            height:500px;
-            width:auto;
+            height: 500px;
+            width: auto;
+            background: linear-gradient(to bottom right,darkblue ,black);
+        }
+
+        .card-header {
+            border-radius: 15px 15px 0 0;
+            background: linear-gradient(to right,darkblue,black); /* Use your desired gradient direction and colors */
         }
 
         /* Form styles */
@@ -59,7 +64,7 @@
         .btn-primary,
         .btn-login
          {
-            background-color: orange;
+            background-color: darkgreen;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
@@ -73,19 +78,24 @@
             white-space: nowrap; /* Prevent line breaks */
             overflow: hidden; /* Hide any overflow */
             text-overflow: ellipsis; /* Add ellipsis for text overflow */
-            background-color: orange;
+            background: linear-gradient(to right, darkblue, black);
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             color: white;
             transition: all 0.3s ease;
         }
+
             .btn-primary:hover,
-            .btn-login:hover,
             .btn-register:hover {
-                background-color: black; /* Darker orange on hover */
+                background: linear-gradient(to right, black, orange); /* Gradient on hover */
                 color: white;
             }
+
+        .btn-login:hover{
+            background: linear-gradient(to right, black, red); Gradient on hover
+            color: white;
+        }
 
         .welcome-heading {
             font-family: 'Open Sans', sans-serif;
@@ -102,7 +112,7 @@
 
         .text-white {
             color: white;
-            font-size: 1rem; /* Adjust the font size as needed */
+            font-size: 1rem; /* Adjust the font size as needed
             /* Add any additional styles here */
         }
 
@@ -128,7 +138,7 @@
                     <h3 class="card-title text-center text-white">Login with your Credentials</h3>
                 </div>
                 <div class="card-body">
-                    <div class="alert alert-danger" role="alert" style="display: @errorMessageDisplay">@errorMessage</div>
+                    <div class="alert alert-danger" role="alert" style="display: @(showErrorMessage ? "block" : "none")">@errorMessage</div>
 
                     <EditForm Model="company">
                         <div class="mb-3" style="border-bottom: 1px solid white;">
@@ -163,17 +173,19 @@
 @code {
     private EntCompany company = new EntCompany();
     private string errorMessage;
-    private string errorMessageDisplay = "none";
+    private bool showErrorMessage = false;
 
     private async Task Authenticate()
     {
         var userAccount = userAccountService.GetByUserName(company);
 
-        @if (userAccount.FirstName == null && userAccount.Roles == null)
+        if (userAccount.FirstName == null && userAccount.Roles == null)
         {
-            await js.InvokeVoidAsync("alert", "Invalid Credentials");
+            errorMessage = "Invalid Credentials";
+            showErrorMessage = true;
             return;
         }
+
         var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
         await customAuthStateProvider.UpdateAuthenticationState(new UserSession
             {

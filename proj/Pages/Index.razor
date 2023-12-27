@@ -22,12 +22,18 @@
             background-size: cover; /* Cover the entire area */
             background-position: center center; /* Center the image */
             position: relative;
-            height: 500px; /* Adjust the height as needed */
+            height: 700px; /* Adjust the height as needed */
             text-align: center;
             color: #fff;
             display: flex;
             justify-content: center;
             align-items: flex-end;
+            animation: slideInLeft 1s ease-in-out;
+            margin-top: 0px; /* Adjust spacing between carousel and hero section */
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            font-family: 'Montserrat', sans-serif; /* Apply 'Montserrat' to the jumbotron */
         }
 
         .hero-content {
@@ -81,6 +87,7 @@
             width: 100%;
             padding: 60px 0;
             text-align: left;
+            scroll-margin-top: 20px; /* Adjust as needed */
         }
 
             .job-listings .row {
@@ -113,13 +120,55 @@
         .footer {
             background-color: #343a40;
             color: #fff;
-            padding: 40px 0;
+            padding: 0px 0;
             text-align: center;
+            font-family: 'Arial', sans-serif;
         }
 
-            .footer p {
-                margin-bottom: 10px;
+            .footer h4 {
+                color: #ffc107;
+                font-size: 1.5em;
+                margin-bottom: 20px;
             }
+
+            .footer p {
+                margin-bottom: 15px;
+                font-size: 1em;
+                line-height: 1.6;
+            }
+
+            .footer a {
+                color: #17a2b8;
+                text-decoration: none;
+                transition: color 0.3s ease-in-out;
+            }
+
+                .footer a:hover {
+                    color: #fff;
+                }
+
+            .footer hr {
+                border-top-color: #fff;
+                opacity: 0.3;
+            }
+
+            .footer ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+            .footer .list-inline-item {
+                margin-right: 15px;
+            }
+
+            .footer svg {
+                fill: white;
+                transition: fill 0.3s ease-in-out;
+            }
+
+                .footer svg:hover {
+                    fill: #ffc107;
+                }
 
         .thumbnail-column {
             margin-left 0; /* Remove margin */
@@ -227,15 +276,15 @@
 </div>
 
 
-<div class="row">
+<div class="row mb-1">
     @if (latestJobs != null && latestJobs.Any())
     {
         <div class="job-listings">
             <h2 class="text-center mb-4">Latest Job Listings</h2>
             <div class="row">
                 @foreach (var job in latestJobs)
-                {
-                    <div class="col-md-12 mb-4">
+                { 
+                    <div class="col-lg-12 col-md-12 mb-4">
                         <div class="card job-card" @onclick="() => ViewJobDetails(job.JobId)">
                             <div class="row g-0 align-items-center">
                                 <div class="col-md-3">
@@ -476,36 +525,55 @@
     </div>
 </div>
 
-
-
 <!-- Footer -->
 <footer class="footer bg-dark text-light py-5">
     <div class="container">
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <h4>About Us</h4>
-                <p>Learn more about our company and our mission.</p>
-                <p><a href="/aboutus" class="text-light">Read More</a></p>
+        <div class="row align-items-center">
+            <div class="col-md-2 mb-4">
+                <img src="/Logo.png" alt="Footer Logo" style="max-width: 100%; height: auto;">
             </div>
-            <div class="col-md-4 mb-4">
-                <h4>Services</h4>
-                <p>Explore our wide range of services tailored for you.</p>
-                <p><a href="/services" class="text-light">View Services</a></p>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <h4>About Us</h4>
+                        <p>Learn more about our company and our mission.</p>
+                        <p><a href="/aboutus" class="text-light">Read More</a></p>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <h4>Services</h4>
+                        <p>Explore our wide range of services tailored for you.</p>
+                        <p><a href="/services" class="text-light">View Services</a></p>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <h4>Contact Us</h4>
+                        <p>Get in touch with us for any inquiries or assistance.</p>
+                        <p><a href="/contactus" class="text-light">Contact Information</a></p>
+                    </div>
+                </div>
+                <hr class="bg-light">
+                <div class="text-center">
+                    <p>&copy; 2023 Best Job Portal - All rights reserved</p>
+                    <p>Designed by Dawood&Murtaza</p>
+                    <p>Email: contact@bestjobportal.com | Phone: 1234567890</p>
+                    <p>Follow us on social media:</p>
+                    <ul class="list-inline" style="list-style-type: none; padding: 0; display: flex; justify-content: center;">
+                        <li class="list-inline-item" style="margin-right: 10px;">
+                            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24"><path fill="#4267B2" d="M21.6 2H2.4C1.7 2 1.1 2.6 1.1 3.3v18.3c0 .7.6 1.3 1.3 1.3h19.2c.7 0 1.3-.6 1.3-1.3V3.3c0-.7-.6-1.3-1.3-1.3zm-6.5 6.5h-2.2c-.4 0-.7.4-.7 1v1.5h2.8l-.6 2.9h-2.3V22h-3.2v-8.8H11v-2.9h-2.3V8.2c0-2.5 1.5-3.8 3.7-3.8 1.1 0 2.1.1 2.4.2v2.6z" /></svg></a>
+                        </li>
+                        <li class="list-inline-item" style="margin-right: 10px;">
+                            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24"><path fill="#1DA1F2" d="M22.46 6c-.58.26-1.19.44-1.82.52a3.87 3.87 0 0 0 1.7-2.13c-.75.44-1.58.76-2.46.94A3.88 3.88 0 0 0 16.9 3c-2.16 0-3.91 1.75-3.91 3.9 0 .31.03.62.1.92-3.25-.16-6.13-1.72-8.05-4.1-.33.56-.52 1.22-.52 1.92 0 1.35.68 2.54 1.7 3.24a3.84 3.84 0 0 1-1.76-.49v.05c0 1.9 1.35 3.48 3.14 3.84-.33.08-.68.12-1.04.12-.25 0-.5-.02-.74-.07.5 1.58 1.95 2.72 3.68 2.75A7.8 7.8 0 0 1 2 18.16c-1.2.14-2.2-.86-2.2-2.05.36.18.77.3 1.2.36a3.9 3.9 0 0 1-1.57-3.27c0-.72.2-1.4.54-1.98 1.97 2.4 4.92 3.99 8.24 4.14-.07-.32-.1-.66-.1-1.01 0-2.44 1.98-4.42 4.42-4.42 1.27 0 2.4.53 3.21 1.39a7.8 7.8 0 0 0 2.46-.94c-.28.88-.88 1.63-1.65 2.11.76-.09 1.49-.29 2.17-.58z" /></svg></a>
+                        </li>
+                        <li class="list-inline-item" style="margin-right: 10px;">
+                            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24"><path fill="#0A66C2" d="M21.98 2H2.02C1.45 2 1 2.45 1 3.02v18.97c0 .57.45 1.02 1.02 1.02h19.96c.57 0 1.02-.45 1.02-1.02V3.02C23 2.45 22.55 2 21.98 2zm-7.2 14.27c-.07.68-.77 1.23-1.45 1.23h-1.1c-.93 0-1.47-.65-1.64-1.2V8.68h2.87v7.59zM12 9.89c-.68 0-1.23-.55-1.23-1.23 0-.68.55-1.23 1.23-1.23s1.23.55 1.23 1.23c0 .68-.55 1.23-1.23 1.23zm6.6 6.38c0 1.2-.81 2.14-2.29 2.14-1.26 0-2.06-.81-2.39-1.56h-.04v1.35H9.39V8.68h2.91v1.04c.48-.73 1.37-1.78 3.34-1.78 2.44 0 4.26 1.6 4.26 5.23v5.38h-.01z" /></svg></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-md-4 mb-4">
-                <h4>Contact Us</h4>
-                <p>Get in touch with us for any inquiries or assistance.</p>
-                <p><a href="/contactus" class="text-light">Contact Information</a></p>
-            </div>
-        </div>
-        <hr class="bg-light">
-        <div class="text-center">
-            <p>&copy; 2023 Best Job Portal - All rights reserved</p>
-            <p>Designed by Top Designers</p>
-            <p>Email: contact@bestjobportal.com | Phone: 1234567890</p>
         </div>
     </div>
 </footer>
+
+
 
 
 @code {
@@ -556,7 +624,5 @@
             return "Unknown posting time";
         }
     }
-
-
 
 }

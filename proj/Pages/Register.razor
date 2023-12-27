@@ -14,19 +14,20 @@
         h1, h2, h3, h4, h5, h6 {
             font-weight: 600; /* Semi-bold weight for headings */
         }
-    .card {
-        border-radius: 0px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-top: 10px; /* Adjust top margin to position the card */
-        background-color: black;
-        color: white;
-        height:600px;
-    }
 
-    .card-header {
-        border-radius: 15px 15px 0 0;
-        background-color: #28a745; /* Use your desired background color */
-    }
+        .card {
+            border-radius: 0px;
+            box-shadow: 0 0 0px rgba(0, 0, 0, 0.1);
+            margin-top: 20px; /* Adjust top margin to position the card */
+            color: white;
+            height: 600px;
+            background: linear-gradient(to right, black,darkred); /* Use your desired gradient direction and colors */
+        }
+
+        .card-header {
+            border-radius: 15px 15px 0 0;
+            background: linear-gradient(to right,black,darkred); /* Use your desired gradient direction and colors */
+        }
 
     .card-title {
         color: #ffffff;
@@ -37,15 +38,19 @@
         font-weight: bold;
     }
 
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-    }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
+        .btn-primary {
+            background: linear-gradient(to right, black, red); /* Gradient background */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: white;
+            transition: all 0.3s ease;
         }
+
+            .btn-primary:hover {
+                background: linear-gradient(to right, black, red); /* Gradient on hover */
+                color: white;
+            }
 
     .background-image {
         background-size: cover;
@@ -58,10 +63,19 @@
     }
 </style>
 </HeadContent>
-<div class="container-fluid p-0" style="background-image: url('/register.jpg'); background-size: cover; background-position: center; height: 100vh;">
+<div class="container-fluid p-0" style="background-image: url('/skyline.jpg'); background-size: cover; background-position: center; background-position-x: center; background-position-y: center; height: 100vh;">
     <div class="row justify-content-end h-100">
+        <!-- Left Side Content -->
+        <div class="col-md-14 d-flex align-items-center">
+            <div style="color: ghostwhite; padding-left: 20px;">
+                <h1 style="font-weight: bold; font-size: 5.5rem;">Join us as a Job Seeker</h1>
+                <p style="font-weight: bold; font-size: 1.5rem;">Find the Job of your Dreams</p>
+            </div>
+        </div>
+
+        <!-- Right Side Card -->
         <div class="col-md-3 d-flex align-items-center justify-content-center">
-            <div class="card" style="border-radius: 0; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin-top: 10px; background-color: black; color: white;">
+            <div class="card" style="border-radius: 0; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin-top: 20px; background-color: white; color: black;">
                 <div class="card-header bg-dark text-white">
                     <h3 class="card-title text-center">Register as a User</h3>
                 </div>
@@ -69,27 +83,27 @@
                     <form @onsubmit="RegisterUser">
                         <div class="mb-3" style="border-bottom: 1px solid white;">
                             <label for="firstName" class="form-label">First Name</label>
-                            <input type="text" class="form-control" id="firstName" @bind="company.FirstName" style="background-color: black; border: none; color: white;">
+                            <input type="text" class="form-control" id="firstName" @bind="company.FirstName" style="background-color:white; border: none; color: black;">
                         </div>
                         <div class="mb-3" style="border-bottom: 1px solid white;">
                             <label for="lastName" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" id="lastName" @bind="company.LastName" required style="background-color: black; border: none; color: white;">
+                            <input type="text" class="form-control" id="lastName" @bind="company.LastName" required style="background-color: white; border: none; color: black;">
                         </div>
                         <div class="mb-3" style="border-bottom: 1px solid white;">
                             <label for="role" class="form-label">Role</label>
-                            <select class="form-control" id="role" @bind="company.Roles" required style="background-color: black; border: none; color: white;">
+                            <select class="form-control" id="role" @bind="company.Roles" required style="background-color: white; border: none; color: black;">
                                 <option value="User">User</option>
-                                <option value="ThirdParty">Third Party</option>
+                                <option value="User">Third Party</option>
                                 <!-- Add more options if needed -->
                             </select>
                         </div>
                         <div class="mb-3" style="border-bottom: 1px solid white;">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" @bind="company.Email" required style="background-color: black; border: none; color: white;">
+                            <input type="email" class="form-control" id="email" @bind="company.Email" required style="background-color: white; border: none; color: black;">
                         </div>
                         <div class="mb-3" style="border-bottom: 1px solid white;">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" @bind="company.Password" required style="background-color: black; border: none; color: white;">
+                            <input type="password" class="form-control" id="password" @bind="company.Password" required style="background-color: white; border: none; color: black;">
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-success">Register</button>

@@ -2,6 +2,7 @@
 {
     public class EntJobApplication
     {
+        public int ApplicationId { get; set; }
         public int JobId { get; set; }
         public string? FullName { get; set; }
         public string? Email { get; set; }

@@ -3,64 +3,79 @@
 @using DAL
 @inject NavigationManager NavigationManager
 
-<style>
-    /* Custom styles for View Job page */
-    .job-details-container {
-        margin-top: 50px;
-    }
+<HeadContent>
+    <!-- Link Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Link Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    .job-details {
-        font-family: 'Arial', sans-serif;
-        color: #333;
-    }
-
-        .job-details h3 {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #0066b2;
-            margin-bottom: 20px;
+    <style>
+        /* Custom styles for View Job page */
+        .job-details-container {
+            margin-top: 50px;
+            font-family: 'Roboto', sans-serif; /* Apply Google Font 'Roboto' */
         }
 
-        .job-details p {
-            font-size: 1.2rem; /* Increased text size */
-            line-height: 1.6;
-            margin-bottom: 20px;
+        .job-details {
+            color: #333;
         }
 
-    .thumbnail-column {
-        text-align: center;
-    }
-
-        .thumbnail-column img {
-            max-width: 800px;
-            height: 700px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-
-            .thumbnail-column img:hover {
-                transform: scale(1.05);
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            .job-details h3 {
+                font-size: 2.5rem;
+                font-weight: bold;
+                color: #0066b2;
+                margin-bottom: 20px;
             }
 
-    /* Custom button style */
-    .custom-button {
-        display: inline-block;
-        padding: 10px 20px;
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: #fff;
-        background-color: green;
-        border: none;
-        border-radius: 5px;
-        transition: background-color 0.3s ease-in-out;
-    }
+            .job-details p {
+                font-size: 1.2rem;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
 
-        .custom-button:hover {
-            background-color: black;
+        .thumbnail-column {
+            text-align: center;
         }
-</style>
+
+            .thumbnail-column img {
+                max-width: 800px;
+                height: 700px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            }
+
+                .thumbnail-column img:hover {
+                    transform: scale(1.05);
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+                }
+
+        /* Custom button style */
+        .custom-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            background-color: green;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+            .custom-button:hover {
+                background-color: black;
+            }
+
+        /* Icon styles */
+        .icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+    </style>
+</HeadContent>
+
 
 <div class="container job-details-container">
     @if (job != null)
@@ -70,11 +85,11 @@
                 <h3>Job Title: @job.JobTitle</h3>
                 <h3 class="text-success font-weight-bold">Description:</h3>
                 <p>@job.Description</p>
-                <h3 class="text-black font-weight-bold">Salary:</h3> <!-- Display Salary -->
-                <p>@job.Salary</p>
-                <h3 class="text-black font-weight-bold">Type:</h3> <!-- Display Type -->
+                <h3 class="text-black font-weight-bold"><i class="fas fa-money-bill-wave icon"></i> Salary:</h3>
+                <p>@job.Salary $</p>
+                <h3 class="text-black font-weight-bold"><i class="fas fa-tag icon"></i> Type:</h3>
                 <p>@job.Type</p>
-                <p class="text-muted">@CalculateTimeAgo(job.TimeUploaded)</p>
+                <p class="text-muted"><i class="far fa-clock icon"></i> @CalculateTimeAgo(job.TimeUploaded)</p>
                 <button class="custom-button" @onclick="ApplyNow">Apply Now</button>
             </div>
             <div class="col-md-6 thumbnail-column">
@@ -90,6 +105,7 @@
         <p>No job details found.</p>
     }
 </div>
+
 
 @code {
     EntJobs job;

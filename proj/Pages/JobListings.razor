@@ -27,15 +27,15 @@
         border-radius: 5px;
     }
 
-    .card {
+    card {
         border-radius: 10px;
         transition: transform 0.3s ease-in-out;
-        height: 100%; /* Set a fixed height for the cards */
+        height: 100%;
     }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
+    .card:hover {
+        transform: translateY(-5px);
+    }
 
     .card-body {
         display: flex;
@@ -49,13 +49,37 @@
         height: 100%;
     }
 
-        .job-content .card-body {
-            flex: 1 1 auto;
-        }
-
     .card-buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         margin-top: auto;
     }
+
+    .btn {
+        border-radius: 5px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-danger {
+        color: #fff;
+        background-color: #dc3545;
+        border: none;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
 
     .truncate-text {
         display: -webkit-box;

@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
+
 /* Resetting default margins/paddings and setting full width */
 html, body, div, p, ul, li {
     margin: 0;
@@ -5,8 +8,6 @@ html, body, div, p, ul, li {
     width: 100%;
     box-sizing: border-box;
 }
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
 
 /* Body and general styles */
 body {
@@ -144,6 +145,7 @@ body {
     to {
         opacity: 1;
     }
+    
     @keyframes fadeInUp {
         from {
             opacity: 0;
@@ -153,6 +155,33 @@ body {
             opacity: 1;
             transform: translateY(0);
         }
+    }
+}
+
+@media (max-width: 767px) {
+    /* Adjust styles for small screens */
+    .navbar-nav {
+        flex-direction: column; /* Stack navbar links vertically */
+        background-color: #333; /* Change background color */
+        padding-top: 15px; /* Add some top padding */
+    }
+
+    .navbar-toggler {
+        order: -1; /* Move the toggler to the start */
+        margin-bottom: 15px; /* Add some bottom margin */
+    }
+
+    .navbar-collapse {
+        display: none; /* Hide the collapsed menu by default */
+    }
+
+    .navbar-toggler[aria-expanded="true"] ~ .navbar-collapse {
+        display: block; /* Display the collapsed menu when toggler is active */
+    }
+
+    .navbar-nav .nav-item {
+        margin-right: 0; /* Remove right margin from nav items */
+        margin-bottom: 10px; /* Add some bottom margin between nav items */
     }
 }
 @keyframes fadeInUp {
