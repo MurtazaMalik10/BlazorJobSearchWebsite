@@ -3,22 +3,26 @@
 
 <CascadingAuthenticationState>
     <PageTitle>Job Portal</PageTitle>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-white">
+    @* <header>
+        <nav class="navbar navbar-expand-lg navbar-custom">
+            <!-- Add the navbar-custom class -->
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <NavMenu />
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Use the same ID in the collapse and the target -->
+                    
                 </div>
             </div>
         </nav>
-    </header>
+    </header> *@
 
+    <NavMenu />
     <div class="page">
+        
         <main>
-            <article class="content px-4">
+            <article class="content px-4 mb-0">
                 @Body
             </article>
         </main>

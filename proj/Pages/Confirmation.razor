@@ -1,11 +1,28 @@
 ﻿@page "/confirmation"
 @using DAL
 @using Entities
-
 @inject NavigationManager NavigationManager
-@inject JobApplicationDAL JobApplicationDAL
-
+<HeadContent>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Other styles and links -->
+</HeadContent>
 <style>
+    .h1-custom {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: bold;
+        font-size: 3rem; /* Adjust the font size as needed */
+        color: white; /* Change the text color */
+        /* Add any other styles you want to apply */
+    }
+
+    .h3-custom {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: bold;
+        font-size: 1.8rem; /* Adjust the font size as needed */
+        color: lightgreen; /* Change the text color */
+        margin-bottom: 10px; /* Add margin bottom as needed */
+        /* Add any other styles you want to apply */
+    }
     .thumbnail-img {
         width: 800px;
         height: 800px;
@@ -19,32 +36,20 @@
         align-items: center;
         height: 100%;
     }
-
-    .job-details h5 {
-        font-size: 4rem;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 15px;
-    }
-
-    .job-details h3 {
-        font-size: 1.8rem;
-        font-weight: bold;
-        color: #0066b2;
-        margin-bottom: 10px;
-    }
-
-    .job-details p {
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-    }
 </style>
 
-<div class="container">
-    <h1 class="mt-4 mb-3 text-center" style="font-weight: bold;">Thank You for Applying!</h1>
-    
+<div style="background-image: url('/buildings.jpg'); background-size: cover; background-position: center; min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; position: relative;">
+    <div class="row text-center align-items-center" style="background-color: rgba(0, 0, 0, 0.5); color: white; padding: 20px;">
+        <div class="container">
+            <h1 class="mt-4 mb-3 h1-custom">Thank You for Applying!</h1>
+            <h3 class="mt-4 mb-3 h3-custom">We'll Contact you very Soon</h3>
+            <div style="display: flex; justify-content: center;">
+                <a href="/joblistings" class="btn btn-primary btn-lg">See more Jobs</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 @code {
-   
+
 }

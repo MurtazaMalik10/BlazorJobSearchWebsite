@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
-
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700|Poppins:300,400,600,700);
+@import url(https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700);
+@import url(https://fonts.googleapis.com/css?family=Playfair+Display:300,400,500,600,700);
 /* Resetting default margins/paddings and setting full width */
 html, body, div, p, ul, li {
     margin: 0;
@@ -8,9 +10,15 @@ html, body, div, p, ul, li {
     width: 100%;
     box-sizing: border-box;
 }
+* {
+    border: none;
+}
 
 /* Body and general styles */
 body {
+    width: 100vw; /* Viewport width */
+    margin: 0;
+    padding: 0;
     font-family: 'Open Sans', sans-serif; /* Set 'Open Sans' as the default font */
     font-size: 16px;
     font-weight: 400;
@@ -20,7 +28,11 @@ body {
     overflow-x: hidden; /* Hide horizontal overflow */
 }
 
-
+.container-fluid {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
 /* Title */
 .title {
     font-family: 'Montserrat', sans-serif; /* Use 'Montserrat' for titles */
@@ -123,7 +135,35 @@ body {
     /* Adjust styles for extra-large screens */
 }
 
+@media (max-width: 768px) {
+    .hero {
+        height: 500px; /* Adjust the height for smaller screens */
+        background-size: cover; /* Ensure the background image covers the area */
+        opacity: 1; /* Adjust opacity for better visibility */
+    }
 
+        .hero h1 {
+            font-size: 2em; /* Reduce font size for smaller screens */
+        }
+
+        .hero p {
+            font-size: 1em; /* Reduce font size for smaller screens */
+        }
+}
+
+@media (max-width: 576px) {
+    .hero {
+        height: 400px; /* Further adjust the height for extra small screens */
+    }
+
+        .hero h1 {
+            font-size: 1.5em; /* Reduce font size more for extra small screens */
+        }
+
+        .hero p {
+            font-size: 0.9em; /* Reduce font size more for extra small screens */
+        }
+}
 /* Animations */
 @keyframes slideInLeft {
     from {
@@ -158,6 +198,30 @@ body {
     }
 }
 
+/*.navbar {
+    background-color: #333;
+}
+
+.navbar-brand,
+.navbar-toggler-icon {
+    color: white;*/ /* Change the color of brand text and toggler icon */
+/*}
+
+.navbar-nav .nav-link {
+    color: white;*/ /* Change the color of nav links */
+/*}*/
+
+/* Active link */
+/*.navbar-nav .nav-item.active .nav-link {
+    color: red;*/ /* Color of active nav link */
+/*}*/
+
+/* Hover effect */
+/*.navbar-nav .nav-link:hover {
+    color: yellow;*/ /* Color of nav links on hover */
+/*}*/
+
+/* Media Queries for Navbar */
 @media (max-width: 767px) {
     /* Adjust styles for small screens */
     .navbar-nav {
@@ -182,17 +246,6 @@ body {
     .navbar-nav .nav-item {
         margin-right: 0; /* Remove right margin from nav items */
         margin-bottom: 10px; /* Add some bottom margin between nav items */
-    }
-}
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
     }
 }
 /* Jumbotron */

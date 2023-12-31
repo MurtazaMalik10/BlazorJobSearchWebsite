@@ -1,0 +1,108 @@
+﻿/* General styles */
+/*body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}*/
+
+/*.container {
+    width: 100%;
+    margin: auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}*/
+
+/* Header Top styles */
+/*.header-top {
+    background-color: black;
+    padding: 10px 0;
+}
+
+.header-top-socials a {
+    color: #333;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.header-top-info a {
+    color: white;
+    margin-right: 20px;
+    font-size: 14px;
+}*/
+
+/* Main Navbar styles */
+/*.navbar {
+    background-color: black;
+    padding: 20px 0;
+}
+
+.navbar-brand {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar-toggler {
+    border: none;
+    background: transparent;
+    color: #fff;
+}
+
+    .navbar-toggler:focus {
+        outline: none;
+    }
+
+    .navbar-toggler span {
+        font-size: 24px;
+    }
+
+.navbar-nav .nav-item {
+    margin-right: 15px;
+}
+
+.nav-link {
+    color: #fff !important;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+    .nav-link:hover {
+        color: #ccc !important;
+    }
+
+.btn {
+    border-radius: 25px;
+    font-size: 14px;
+    padding: 8px 20px;
+    margin-left: 10px;
+}
+
+.btn-outline-primary {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+    .btn-outline-primary:hover {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #fff;
+}
+
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #218838;
+    }*/
+
+/* Footer styles (if needed) */
+/*.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}*/

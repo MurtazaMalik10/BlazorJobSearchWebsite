@@ -16,6 +16,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            border:none;
         }
 
         .hero {
@@ -77,7 +78,7 @@
             background-color: #f8f8f8;
             color: #333;
             line-height: 1.6;
-            margin-top: 20px;
+            margin-top: 0px;
         }
 
         /* Custom Classes for Styling */
@@ -111,7 +112,9 @@
 
         body {
             font-family: 'Open Sans', sans-serif; /* Apply Open Sans to the body */
+            margin:0;
         }
+
 
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Montserrat', sans-serif; /* Apply Montserrat to headings */
@@ -178,7 +181,8 @@
         .thumbnail-img {
             padding-right : 0;
             width: 400px; /* Set a specific width */
-            height: 250px; /* Set a specific height */
+            max-width: 100%; /* Ensure images resize based on container width */
+            height: auto;
             object-fit: cover; /* Maintain aspect ratio */
             transition: transform 0.3s ease-in-out; /* Add transition for smooth effect */
         }
@@ -266,9 +270,9 @@
 
 </HeadContent>
 
-<div class="hero" style="background-image: url('/DMLogo.jpg'); opacity: 2.8;">
+<div class="hero" style="background-image: url('/DMLogo.jpg'); background-size: cover; background-position: center; opacity: 2.8;">
     <div class="row text-center align-items-center">
-        <div class="container "style="padding-top: 1550px;">
+        <div class="container" style="padding-top: 1550px;">
             <h1 style="color: darkorange; font-size: 3em; font-weight: bold;">Welcome to National Job Portal</h1>
             <p style="color: white; font-size: 1.5em;">Find Your Dream Job With Us</p>
         </div>
@@ -382,45 +386,46 @@
 
 
 
-<div class="row mt-5" style="background-image: url('/buildings.jpg'); background-size: cover; background-position: center; padding: 40px 0; height: 500px;">
-    <!-- Cards -->
-    <div class="d-flex flex-column justify-content-between align-items-center w-100">
-        <h1 style="color: white; font-size: 3em; font-weight: bold; text-align: center; margin-top: 20px;">Explore Companies On-Board with Us!</h1>
-        <div class="row mb-4">
-            <div class="col-md-4 mb-4">
-                <NavLink href="/companylist" class="text-decoration-none">
-                    <div class="card h-80">
-                        <div class="card-body">
-                            <h5 class="card-title">Browse Saved Companies</h5>
-                            <p class="card-text">View a list of saved companies.</p>
-                        </div>
-                    </div>
-                </NavLink>
-            </div>
-            <div class="col-md-4 mb-4">
-                <NavLink href="/companylist" class="text-decoration-none">
-                    <div class="card h-80">
-                        <div class="card-body">
-                            <h5 class="card-title">Explore Company Profiles</h5>
-                            <p class="card-text">Discover details about different companies.</p>
-                        </div>
-                    </div>
-                </NavLink>
-            </div>
-            <div class="col-md-4 mb-4">
-                <NavLink href="/companylist" class="text-decoration-none">
-                    <div class="card h-80">
-                        <div class="card-body">
-                            <h5 class="card-title">Search for Companies</h5>
-                            <p class="card-text">Find specific companies by name or criteria.</p>
-                        </div>
-                    </div>
-                </NavLink>
-            </div>
-            <!-- Add more cards here -->
+<div class="row">
+    <div class="row" style="background-image: url('/buildings.jpg'); background-size: cover; background-position: center; padding: 70px 0;">
+        <!-- Cards -->
+        <div class="col-12 text-center">
+            <h1 style="color: white; font-size: 3em; font-weight: bold; margin-top: 30px;">Explore Companies On-Board with Us!</h1>
         </div>
+        <div class="col-md-4 mb-4">
+            <NavLink href="/companylist" class="text-decoration-none">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Browse Saved Companies</h5>
+                        <p class="card-text">View a list of saved companies.</p>
+                    </div>
+                </div>
+            </NavLink>
+        </div>
+        <div class="col-md-4 mb-4">
+            <NavLink href="/companylist" class="text-decoration-none">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Explore Company Profiles</h5>
+                        <p class="card-text">Discover details about different companies.</p>
+                    </div>
+                </div>
+            </NavLink>
+        </div>
+        <div class="col-md-4 mb-4">
+            <NavLink href="/companylist" class="text-decoration-none">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Search for Companies</h5>
+                        <p class="card-text">Find specific companies by name or criteria.</p>
+                    </div>
+                </div>
+            </NavLink>
+        </div>
+        <!-- Add more cards here -->
     </div>
 </div>
+
 
 
 <div class="row mt-5">
@@ -485,9 +490,10 @@
 </div>
 
 
-<!-- About Us -->
-<div class="row mt-5">
-    <h1 class="text-center mb-4">Our Organization</h1> <!-- Added h1 element -->
+<div class="row">
+    <div class="row">
+        <div class="row">
+            <h1 class="text-center mb-4">Our Organization</h1>
     <div class="col-md-4 mb-4">
         <NavLink href="/aboutus">
             <div class="card h-100 border-0 shadow">
@@ -524,7 +530,8 @@
         </NavLink>
     </div>
 </div>
-
+</div>
+</div>
 <!-- Footer -->
 <footer class="footer bg-dark text-light py-5">
     <div class="container">

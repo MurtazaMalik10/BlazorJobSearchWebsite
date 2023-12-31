@@ -31,27 +31,27 @@ namespace DAL
 
 
 
-        public static List<EntJobs> ShowCompanyJob(string loggedInCompanyID)
-        {
-            List<EntJobs> jobList = new List<EntJobs>();
+        //public static List<EntJobs> ShowCompanyJob(string loggedInCompanyID)
+        //{
+        //    List<EntJobs> jobList = new List<EntJobs>();
 
-            SqlConnection con = DBHelper.GetConnection();
-            con.Open();
-            SqlCommand cmd = new SqlCommand("SP_ShowCompanyJob", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            SqlDataReader reader = cmd.ExecuteReader();
+        //    SqlConnection con = DBHelper.GetConnection();
+        //    con.Open();
+        //    SqlCommand cmd = new SqlCommand("SP_ShowCompanyJob", con);
+        //    cmd.CommandType = CommandType.StoredProcedure;
+        //    SqlDataReader reader = cmd.ExecuteReader();
 
-            while (reader.Read())
-            {
-                EntJobs ej = new EntJobs();
+        //    while (reader.Read())
+        //    {
+        //        EntJobs ej = new EntJobs();
 
-                ej.JobTitle = reader["JobTitle"].ToString();
-                jobList.Add(ej);
-            }
+        //        ej.JobTitle = reader["JobTitle"].ToString();
+        //        jobList.Add(ej);
+        //    }
 
-            con.Close();
-            return jobList;
-        }
+        //    con.Close();
+        //    return jobList;
+        //}
 
 
         public static List<EntJobs> ShowJob()

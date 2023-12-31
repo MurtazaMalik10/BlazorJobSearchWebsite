@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-
 </HeadContent>
 
 
@@ -49,7 +48,7 @@
                         </div>
                         <div>
                         <li class="nav-item">
-                            <a class="nav-link" href="/jobapplications"><i class="fas fa-briefcase"></i> Job Applications</a>
+                            <a class="nav-link" href="/jobapplications"><i class="fas fa-briefcase"></i>Applications</a>
                         </li>
                         </div>
                     </Authorized>
@@ -61,204 +60,242 @@
                         <a class="btn btn-danger me-2" @onclick="Logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
                     </Authorized>
                     <NotAuthorized>
+                        <div>
                         <a class="btn me-2 custom-btn" href="login">
                             <i class="fas fa-user"></i> <span class="button-text">Job Seeker</span>
                         </a>
+                        </div>
+                        <div>
                         <a class="btn me-2 custom-btn" href="login">
                             <i class="fas fa-building"></i> <span class="button-text">Company</span>
                         </a>
+                        </div>
                     </NotAuthorized>
                 </AuthorizeView>
-            </div>
-        </div>
-    </div>
+                 </div>
+         </div>
+       </div>
+
 </nav>
-
-
-
-
 <style>
-        /* Reset styles */
-        body, html {
-            margin: 0;
-            padding: 0;
-        }
-        /* Common Navbar styles */
-        .navbar-custom {
-            background-color: #0066b2;
-            padding: 15px 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+    .navbar {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    /* Reset styles */
+    body, html {
+        margin: 0;
+        padding: 0;
+    }
+    /* Common Navbar styles */
+    .navbar-custom {
+        background-color: black;
+        padding: 15px 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-            /* Navbar Brand */
-            .navbar-custom .navbar-brand {
-                color: white;
-                font-size: 24px;
-                font-weight: bold;
-                text-transform: uppercase;
-                transition: transform 0.3s ease;
-            }
-
-                .navbar-custom .navbar-brand:hover {
-                    transform: scale(1.1);
-                }
-
-            /* Nav Links */
-            .navbar-custom .nav-link {
-                color: white !important;
-                transition: color 0.3s ease;
-                position: relative;
-            }
-
-                .navbar-custom .nav-link::before {
-                    content: '';
-                    position: absolute;
-                    bottom: -2px;
-                    left: 0;
-                    width: 0%;
-                    height: 2px;
-                    background-color: #ffc107;
-                    transition: width 0.3s ease;
-                }
-
-                .navbar-custom .nav-link:hover::before {
-                    width: 100%;
-                }
-
-            /* Buttons */
-            .navbar-custom .btn {
-                margin-left: 5px;
-                margin-right: 5px;
-                transition: transform 0.3s ease;
-            }
-
-            .navbar-custom .btn-success,
-            .navbar-custom .btn-danger {
-                color: white;
-                transition: background-color 0.3s ease;
-                border-radius: 5px;
-            }
-
-                .navbar-custom .btn-success:hover {
-                    background-color: #218838;
-                    transform: scale(1.1);
-                }
-
-                .navbar-custom .btn-danger:hover {
-                    background-color: #c82333;
-                    transform: scale(1.1);
-                }
-
-            /* Small Profile Photo */
-            .navbar-custom .small-profile-photo {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                overflow: hidden;
-                transition: transform 0.3s ease;
-            }
-
-                .navbar-custom .small-profile-photo:hover {
-                    transform: scale(1.1);
-                }
-
-        /* Original Navbar styles */
-        /* Navbar customization */
-        .navbar {
-            background-color: #0066b2; /* Navbar background color */
-            width: 100%; /* Make navbar span full width */
-            position: relative;
-            z-index: 1000;
-            margin-top: 0; /* Remove margin at the top */
-            padding: 20px 0; /* Adjust the top and bottom padding to increase the navbar height */
-        }
-
-        .navbar-brand {
-            font-family: 'Oswald', sans-serif;
+        /* Navbar Brand */
+        .navbar-custom .navbar-brand {
+            color: white;
             font-size: 24px;
             font-weight: bold;
             text-transform: uppercase;
             transition: transform 0.3s ease;
-            color: white;
         }
 
-            .navbar-brand:hover {
-                transform: scale(1.05);
+            .navbar-custom .navbar-brand:hover {
+                transform: scale(1.1);
             }
 
-        .nav-link {
-            font-family: 'Roboto', sans-serif;
+        /* Nav Links */
+        .navbar-custom .nav-link {
             color: white !important;
             transition: color 0.3s ease;
             position: relative;
-            padding: 0.5rem 1rem;
         }
 
-            .nav-link::before {
+            .navbar-custom .nav-link::before {
                 content: '';
                 position: absolute;
-                bottom: 0;
+                bottom: -2px;
                 left: 0;
-                width: 100%;
+                width: 0%;
                 height: 2px;
                 background-color: #ffc107;
-                transform: scaleX(0);
-                transition: transform 0.3s ease;
-                transform-origin: bottom right;
+                transition: width 0.3s ease;
             }
 
-            .nav-link:hover::before {
-                transform: scaleX(1);
-                transform-origin: bottom left;
+            .navbar-custom .nav-link:hover::before {
+                width: 100%;
             }
 
-        .navbar-nav .nav-item {
-            margin-right: 10px;
+        /* Buttons */
+        .navbar-custom .btn {
+            margin-left: 5px;
+            margin-right: 5px;
+            transition: transform 0.3s ease;
         }
 
-        .nav-link.active::before {
+        .navbar-custom .btn-success,
+        .navbar-custom .btn-danger {
+            color: white;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+        }
+
+            .navbar-custom .btn-success:hover {
+                background-color: #218838;
+                transform: scale(1.1);
+            }
+
+            .navbar-custom .btn-danger:hover {
+                background-color: #c82333;
+                transform: scale(1.1);
+            }
+
+        /* Small Profile Photo */
+        .navbar-custom .small-profile-photo {
+            width: 120px;
+            height: 80px;
+            border-radius: 0%;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+            .navbar-custom .small-profile-photo:hover {
+                transform: scale(1.1);
+            }
+
+    /* Original Navbar styles */
+    /* Navbar customization */
+    .navbar {
+        background-color: black; /* Navbar background color */
+        width: 100%; /* Make navbar span full width */
+        position: relative;
+        z-index: 1000;
+        margin-top: 0; /* Remove margin at the top */
+        padding: 0px; /* Adjust the top and bottom padding to increase the navbar height */
+    }
+
+    .navbar-brand {
+        font-family: 'Oswald', sans-serif;
+        font-size: 24px;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: transform 0.3s ease;
+        color: white;
+    }
+
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+
+    .nav-link {
+        font-family: 'Roboto', sans-serif;
+        color: white !important;
+        transition: color 0.3s ease;
+        position: relative;
+        padding: 0.5rem 1rem;
+    }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #ffc107;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: bottom right;
+        }
+
+        .nav-link:hover::before {
             transform: scaleX(1);
             transform-origin: bottom left;
         }
 
-        .small-profile-photo {
-            width: 140px; /* Reduced profile photo size */
-            height: 70px; /* Maintain aspect ratio */
+    .navbar-nav .nav-item {
+        margin-right: 20px;
+    }
+
+    .nav-link.active::before {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+    }
+
+    .small-profile-photo {
+        width: 140px; /* Reduced profile photo size */
+        height: 70px; /* Maintain aspect ratio */
+    }
+
+    .custom-btn {
+        color: white; /* Set text color to white */
+        background: linear-gradient(to right, black,orange); /* New background color for the buttons */
+        border-color: black; /* Matching border color */
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        /* Adding transition effects */
+        display: flex;
+        justify-content: center; /* Align text horizontally to center */
+        align-items: center; /* Align text vertically to center */
+    }
+
+    .button-text {
+        color: white; /* Set text color to white */
+    }
+
+    .custom-btn:hover {
+        background-color: darkorange; /* Darker background color on hover */
+        transform: scale(1.25); /* Scale effect on hover */
+    }
+
+
+
+    /* Navbar brand on mobile */
+    .navbar-brand {
+        margin-right: 20px; /* Align brand to the left on mobile */
+    }
+
+    /* Navbar links for mobile */
+    .navbar-nav {
+        margin-top: auto; /* Add spacing between links */
+    }
+
+    .nav-link {
+        padding: 10px 20px; /* Adjust padding for mobile links */
+        display: block; /* Display as block for mobile links */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Add separator between links */
+    }
+
+        .nav-link:last-child {
+            border-bottom: none; /* Remove separator for last link */
         }
 
-        .custom-btn {
-            color: white; /* Set text color to white */
-            background: linear-gradient(to right, black,orange); /* New background color for the buttons */
-            border-color: black; /* Matching border color */
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            /* Adding transition effects */
-            display: flex;
-            justify-content: center; /* Align text horizontally to center */
-            align-items: center; /* Align text vertically to center */
-        }
-
-        .button-text {
-            color: white; /* Set text color to white */
-        }
-
-        .custom-btn:hover {
-            background-color: darkorange; /* Darker background color on hover */
-            transform: scale(1.25); /* Scale effect on hover */
-        }
+    }
 </style>
+
+
 @code {
     private async Task Logout()
     {
-        // var customAuthStateProvider = (CustomAuthenticationState)authStateProvider;
-        // await customAuthStateProvider.UpdateAuthenticationState(null);
         nm.NavigateTo("/", true);
     }
-    
+
     private bool IsNavbarExpanded { get; set; }
 
     private void ToggleNavbar()
     {
         IsNavbarExpanded = !IsNavbarExpanded;
+        if (IsNavbarExpanded)
+        {
+            js.InvokeVoidAsync("$('.navbar-collapse').collapse('show');");
+        }
+        else
+        {
+            js.InvokeVoidAsync("$('.navbar-collapse').collapse('hide');");
+        }
     }
 }
 
