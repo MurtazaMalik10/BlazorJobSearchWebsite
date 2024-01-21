@@ -20,6 +20,7 @@
         }
 
         .hero {
+            background-image: url('/DMLogo.jpg'); /* Add the background image here */
             background-size: cover; /* Cover the entire area */
             background-position: center center; /* Center the image */
             position: relative;
@@ -30,12 +31,13 @@
             justify-content: center;
             align-items: flex-end;
             animation: slideInLeft 1s ease-in-out;
-            margin-top: 0px; /* Adjust spacing between carousel and hero section */
-            margin-bottom: 0px;
-            margin-left: 0px;
-            margin-right: 0px;
+            margin: 0; /* Remove margins */
             font-family: 'Montserrat', sans-serif; /* Apply 'Montserrat' to the jumbotron */
         }
+
+            .hero .container {
+                padding-top: 1550px; /* Adjust spacing between carousel and hero section */
+            }
 
         .hero-content {
             text-align: center;
@@ -174,17 +176,15 @@
                 }
 
         .thumbnail-column {
-            margin-left 0; /* Remove margin */
-            padding-left 0; /* Remove padding */
+            height: 100%; /* Set a fixed height for the thumbnail column */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .thumbnail-img {
-            padding-right : 0;
-            width: 400px; /* Set a specific width */
-            max-width: 100%; /* Ensure images resize based on container width */
-            height: auto;
-            object-fit: cover; /* Maintain aspect ratio */
-            transition: transform 0.3s ease-in-out; /* Add transition for smooth effect */
+            max-width: 100%;
+            max-height: 100%; /* Ensure the image does not exceed the fixed height */
         }
 
             /* Apply hover effect to the image */
@@ -270,7 +270,7 @@
 
 </HeadContent>
 
-<div class="hero" style="background-image: url('/DMLogo.jpg'); background-size: cover; background-position: center; opacity: 2.8;">
+<div class="hero">
     <div class="row text-center align-items-center">
         <div class="container" style="padding-top: 1550px;">
             <h1 style="color: darkorange; font-size: 3em; font-weight: bold;">Welcome to National Job Portal</h1>
@@ -287,7 +287,7 @@
             <h2 class="text-center mb-4">Latest Job Listings</h2>
             <div class="row">
                 @foreach (var job in latestJobs)
-                { 
+                {
                     <div class="col-lg-12 col-md-12 mb-4">
                         <div class="card job-card" @onclick="() => ViewJobDetails(job.JobId)">
                             <div class="row g-0 align-items-center">

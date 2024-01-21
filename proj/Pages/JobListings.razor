@@ -10,11 +10,8 @@
 </HeadContent>
 
 <style>
-    /* Add your existing styles here */
-
-    /* Additional or modified styles for the joblistings page */
     .h1-custom {
-        text-align:center;
+        text-align: center;
         font-family: 'Montserrat', sans-serif;
         font-weight: bold;
         font-size: 3rem;
@@ -27,6 +24,7 @@
         overflow: hidden;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease-in-out;
+        height: 100%;
     }
 
         .card:hover {
@@ -35,17 +33,17 @@
 
     .card-img-top {
         border-top-left-radius: 15px;
-        border-bottom-left-radius: 15px;
-        height: 400px;
-        width: auto;
+        border-top-right-radius: 15px;
+        height: 200px; /* Adjust height as needed */
+        width: 100%;
         object-fit: cover;
     }
 
     .card-body {
         padding: 20px;
-        height: 100%;
         display: flex;
         flex-direction: column;
+        height: 100%;
     }
 
     .card-title {
@@ -103,43 +101,50 @@
         text-overflow: ellipsis;
         -webkit-line-clamp: 3;
     }
+
+    .thumbnail-wrapper {
+        position: relative;
+        overflow: hidden;
+        /* Set the desired aspect ratio (width:height), e.g., 4:3 */
+        padding-bottom: 75%; /* (3/4) * 100% = 75% for 4:3 aspect ratio */
+        max-height: 300px; /* Set the maximum height as needed */
+    }
+
+    .thumbnail-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 </style>
 
 <h1 class="mt-4 mb-3 h1-custom">Job Listings</h1>
 
-<div class="row row-cols-2 row-cols-md-1 g-4">
+<div class="row row-cols-1 row-cols-md-3 g-4">
     @if (jobs != null && jobs.Any())
     {
         @foreach (var job in jobs)
         {
             <div class="col mb-4">
                 <div class="card h-100">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <div class="thumbnail-column">
-                                <div class="thumbnail-wrapper">
-                                    @if (!string.IsNullOrEmpty(job.Thumbnail))
-                                    {
-                                        <img class="card-img-top thumbnail-img" src="@($"data:image/png;base64,{job.Thumbnail}")" alt="Thumbnail" />
-                                    }
-                                </div>
-                            </div>
+                    <div class="card-body">
+                        <div class="thumbnail-wrapper mb-3">
+                            @if (!string.IsNullOrEmpty(job.Thumbnail))
+                            {
+                                <img class="card-img-top thumbnail-img" src="@($"data:image/png;base64,{job.Thumbnail}")" alt="Thumbnail" />
+                            }
                         </div>
-                        <div class="col-md-8">
-                            <div class="job-content">
-                                <div class="card-body">
-                                    <h3 class="card-title">@job.JobTitle</h3>
-                                    <p class="card-text truncate-text">@job.Description</p>
-                                    <p><strong>Salary:</strong> @job.Salary PKR</p>
-                                    <p><strong>Type:</strong> @job.Type</p>
-                                </div>
-                                <div class="card-buttons d-flex justify-content-between align-items-end">
-                                    <button class="btn btn-primary" @onclick="@(() => ViewJobDetails(job.JobId))">View Job</button>
-                                    <AuthorizeView Roles="Company">
-                                        <button class="btn btn-danger" @onclick="@(() => DeleteJob(job.JobId))">Delete Job</button>
-                                    </AuthorizeView>
-                                </div>
-                            </div>
+                        <h3 class="card-title">@job.JobTitle</h3>
+                        <p class="card-text truncate-text">@job.Description</p>
+                        <p><strong>Salary:</strong> @job.Salary PKR</p>
+                        <p><strong>Type:</strong> @job.Type</p>
+                        <div class="card-buttons d-flex justify-content-between mt-auto">
+                            <button class="btn btn-primary" @onclick="@(() => ViewJobDetails(job.JobId))">View Job</button>
+                            <AuthorizeView Roles="Company">
+                                <button class="btn btn-danger" @onclick="@(() => DeleteJob(job.JobId))">Delete Job</button>
+                            </AuthorizeView>
                         </div>
                     </div>
                 </div>
@@ -153,7 +158,6 @@
         </div>
     }
 </div>
-
 
 @code {
     List<EntJobs> jobs;
